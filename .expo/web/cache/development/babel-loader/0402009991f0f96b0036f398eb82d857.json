@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { AkIcons } from \"./src\";","map":{"version":3,"names":["AkIcons"],"sources":["/home/danilosilvadev/dev/@akalli/ak-icons/index.js"],"sourcesContent":["export { AkIcons } from \"./src\";\n"],"mappings":"AAAA,SAASA,OAAT"},"metadata":{},"sourceType":"module"}

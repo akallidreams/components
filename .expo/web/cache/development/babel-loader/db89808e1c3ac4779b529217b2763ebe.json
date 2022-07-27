@@ -1,0 +1,1 @@
+{"ast":null,"code":"","map":{"version":3,"names":[],"sources":["/home/danilosilvadev/dev/@akalli/ak-icons/src/components/types.ts"],"sourcesContent":["export interface IIconProps {\n  size: string;\n  color: string;\n}\n"],"mappings":""},"metadata":{},"sourceType":"script"}
