@@ -1,6 +1,8 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { IExtendThemeConfig, IColors } from "./types";
-import * as Font from "expo-font";
+import { IExtendThemeConfig, IFontSources } from "./types";
+import { colors } from "./colors";
+import { nativeBaseComponents } from "./components";
+import { main } from "./font";
 
 const config = {
   dependencies: {
@@ -8,31 +10,20 @@ const config = {
   },
 };
 
-const colors = (c: IColors) => ({
-  primary: c.primary || "blue",
-  secondary: c.secondary || "black",
-  grey: c.grey || "grey",
-  greyLight: c.greyLight || "#cccccc",
-  greyDark: c.greyDark || "#424242",
-  white: c.white || "white",
-  extra: c.extra || {},
-});
-
 const extendThemeConfig = (params: IExtendThemeConfig) => ({
   colors: colors(params.colors),
-  components: params.variants || {},
-  fontConfig: params.fonts.config,
+  components: nativeBaseComponents({
+    variants: params.variants,
+    fSize: params.fontSizes,
+    baseColor: params.colors.greyLight,
+  }),
+  fontConfig: {},
   fonts: {
-    main: params.fonts.main,
+    main: main,
   },
 });
-
-const fetchFonts = (fonts: any) => {
-  return Font.loadAsync(fonts);
-};
 
 export const themeConfig = {
   config,
   extendThemeConfig,
-  fetchFonts,
 };

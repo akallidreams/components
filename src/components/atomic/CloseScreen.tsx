@@ -1,26 +1,27 @@
 import { Box, Pressable } from "native-base";
 import { AkIcons } from "@akalli/icons";
+import { AkNavigation } from "@akalli/navigation";
 
 const baseDistance = {
   right: 50,
   top: 60,
 };
 
-interface Props {
+interface IProps {
   right?: number;
   top?: number;
   left?: number;
   bottom?: number;
   route?: string;
-  navigate: any;
 }
 
-export const CloseScreen = (props: Props = baseDistance) => {
+export const CloseScreen = (props: IProps = baseDistance) => {
+  const { navigate } = AkNavigation.useNav();
   return (
     <Box position="absolute" top="45px" left="30px" {...props}>
       <Pressable
         onPress={() => {
-          props.navigate(props.route || "dashboard");
+          navigate(props.route || "Main");
         }}
       >
         <AkIcons.NavIcons.CloseIcon size="22px" />

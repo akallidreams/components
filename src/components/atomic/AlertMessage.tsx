@@ -1,6 +1,6 @@
 import { Alert, HStack, Text } from "native-base";
 
-interface Props {
+interface IProps {
   message: string;
   type: string;
   variants?: {
@@ -8,12 +8,12 @@ interface Props {
   };
 }
 
-export const AlertMessage = (props: Props) => {
+export const AlertMessage = (props: IProps) => {
   return (
     <Alert w="full" status={props.type} borderRadius={0}>
       <HStack space={2} alignItems="center" w="full">
         <Alert.Icon size="6px" />
-        <Text variant={props.text || "primary"} color="white">
+        <Text variant={props?.variants?.text || "primary"} color="white">
           {props.message}
         </Text>
       </HStack>

@@ -1,5 +1,5 @@
 import { Atomic, Headers } from "./components";
-import * as AkNavTypes from "./helpers/types";
+import * as AkThemeTypes from "./helpers/types";
 import { themeConfig } from "./helpers";
 
 export const AkComponents = {
@@ -8,4 +8,4 @@ export const AkComponents = {
   themeConfig,
 };
 
-export type { AkNavTypes };
+export type { AkThemeTypes };

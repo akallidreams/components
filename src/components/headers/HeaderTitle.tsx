@@ -1,7 +1,7 @@
 import { Text, VStack } from "native-base";
 import { Atomic } from "..";
 
-interface Props {
+interface IProps {
   title: string;
   subtitle?: string;
   colors?: {
@@ -15,7 +15,7 @@ interface Props {
   space?: string;
 }
 
-export const HeaderTitle = (props: Props) => {
+export const HeaderTitle = (props: IProps) => {
   return (
     <VStack w="full" h="200px" bg="primary">
       <Atomic.CloseScreen />

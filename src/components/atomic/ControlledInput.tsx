@@ -1,10 +1,24 @@
 import { FormControl, Input, Text } from "native-base";
-import { Controller } from "react-hook-form";
+import { Controller, Control, FieldErrors } from "react-hook-form";
 
-interface Props {
-  errors: any;
-  rules: any;
-  control: any;
+interface IProps {
+  errors: FieldErrors<any>;
+  rules: {
+    required?: string;
+    minLength?: {
+      value: number;
+      message: string;
+    };
+    maxLength?: {
+      value: number;
+      message: string;
+    };
+    pattern?: {
+      value: RegExp;
+      message: string;
+    };
+  };
+  control: Control<any>;
   label: string;
   name: string;
   type: "text" | "password" | undefined;
@@ -17,7 +31,7 @@ interface Props {
   };
 }
 
-export const ControlledInput = (props: Props) => {
+export const ControlledInput = (props: IProps) => {
   return (
     <FormControl isRequired isInvalid={props.name in props.errors}>
       <FormControl.Label>
@@ -35,7 +49,7 @@ export const ControlledInput = (props: Props) => {
             value={value}
             type={props.type}
             color={props.color || "greyDark"}
-            variant={props.variants?.input || "underlined"}
+            variant={props.variants?.input || "primary"}
             borderColor={props.borderColor || "greyDark"}
           />
         )}

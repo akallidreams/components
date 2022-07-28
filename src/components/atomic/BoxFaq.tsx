@@ -1,15 +1,15 @@
 import { Text, VStack } from "native-base";
 
-interface Props {
+interface IProps {
   question: string;
   answer: string;
-  variants: {
-    question: string;
-    answer: string;
+  variants?: {
+    question?: string;
+    answer?: string;
   };
 }
 
-export const BoxFaq = ({ question, answer, variants }: Props) => {
+export const BoxFaq = ({ question, answer, variants }: IProps) => {
   return (
     <VStack
       px="10px"

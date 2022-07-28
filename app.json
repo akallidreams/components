@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "akalli-navigation",
-    "slug": "akalli-navigation",
+    "name": "akalli-theme",
+    "slug": "akalli-theme",
     "version": "1.0.0",
     "androidStatusBar": {
       "backgroundColor": "#35a0fe",

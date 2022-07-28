@@ -1,34 +1,3 @@
-import React from "react";
-
-export interface IRoute {
-  Component: React.ElementType;
-  name: string;
-  bg: string | undefined;
-  Icon?: React.ElementType;
-}
-
-export interface IDrawer {
-  position: "left" | "right";
-  bg: string;
-  labelColor: string;
-}
-
-export interface IRouter {
-  authStack: IRoute[];
-  authInitial: string;
-  appStack: IRoute[];
-  appInitial: string;
-  drawer?: IDrawer;
-  activeStack: "app" | "auth";
-  env: "dev" | "prod";
-}
-
-export interface IStack {
-  routes: IRoute[];
-  initial: string;
-  drawer?: IDrawer;
-}
-
 export interface IColors {
   primary: string;
   secondary?: string;
@@ -53,13 +22,33 @@ export interface IVariants {
   };
 }
 
-interface IFonts {
-  config: {};
-  main: string;
+export interface IExtendThemeConfig {
+  variants?: IVariants;
+  colors: IColors;
+  fontSizes?: IFSize;
 }
 
-export interface IExtendThemeConfig {
-  variants: IVariants;
-  colors: IColors;
-  fonts: IFonts;
+export interface IFSize {
+  xl?: {
+    fontSize: string;
+  };
+  lg?: {
+    fontSize: string;
+  };
+  md?: {
+    fontSize: string;
+  };
+  sm?: {
+    fontSize: string;
+  };
+}
+
+export interface INativeBaseComponents {
+  variants?: any;
+  fSize?: IFSize;
+  baseColor?: string | undefined;
+}
+
+export interface IFontSources {
+  [key: string]: any;
 }

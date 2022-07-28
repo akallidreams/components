@@ -1,21 +1,22 @@
 import { Text, VStack } from "native-base";
 
-interface Props {
-  name: string;
-  email: string;
+interface IProps {
+  title: string;
+  subtitle: string;
+  bg?: string;
   variants?: {
     title: string;
     subtitle: string;
   };
 }
 
-export const AccountHeader = (props: Props) => {
+export const AccountHeader = (props: IProps) => {
   return (
-    <VStack bg="greyDark">
+    <VStack bg={props?.bg || "greyDark"}>
       <VStack ml="5%" my="20px">
-        <Text variant={props.variants?.title || "title"}>{props.name}</Text>
+        <Text variant={props.variants?.title || "title"}>{props.title}</Text>
         <Text variant={props.variants?.subtitle || "primary"}>
-          {props.email}
+          {props.subtitle}
         </Text>
       </VStack>
     </VStack>
