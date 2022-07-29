@@ -13,6 +13,7 @@
 # Dependencies of package.json
 
 ```json
+    "styled-components": "^5.3.5",
     "@akalli/icons": "^0.0.6",
     "@akalli/navigation": "^0.1.1",
     "@react-native-async-storage/async-storage": "~1.17.3",

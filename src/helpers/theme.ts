@@ -10,6 +10,8 @@ const config = {
   },
 };
 
+// TODO: make web version with Pressable and mirror behaviors on the web
+
 const extendThemeConfig = (params: IExtendThemeConfig) => ({
   colors: colors(params.colors),
   components: nativeBaseComponents({

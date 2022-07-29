@@ -1,10 +1,12 @@
+import { IColor } from "./types/style";
+
 export interface IColors {
-  primary: string;
-  secondary?: string;
-  grey?: string;
-  greyLight?: string;
-  greyDark?: string;
-  white?: string;
+  primary: IColor;
+  secondary?: IColor;
+  grey?: IColor;
+  greyLight?: IColor;
+  greyDark?: IColor;
+  white?: IColor;
   extra?: any;
 }
 

@@ -11,6 +11,9 @@ interface IProps extends ViewStyle {
   onPress: (nativeEvent: PressEvent) => void;
   onPressIn: (nativeEvent: PressEvent) => void;
   onPressOut: (nativeEvent: PressEvent) => void;
+  disable: boolean;
+  testOnly_pressed: boolean;
+  variant: string;
 }
 
 const handleStyle = (props: IProps) => {
@@ -20,6 +23,13 @@ const handleStyle = (props: IProps) => {
   delete style.onPressOut;
   delete style.onLongPress;
   delete style.onPressIn;
+  delete style.android_disableSound;
+  delete style.android_ripple;
+  delete style.unstable_pressDelay;
+  delete style.disabled;
+  delete style.hitSlop;
+  delete style.pressRetentionOffset;
+  delete style.testOnly_pressed;
   return style;
 };
 
@@ -29,6 +39,8 @@ const handlePresses = (props: IProps) => {
     onPressOut: props.onPressOut,
     onLongPress: props.onLongPress,
     onPressIn: props.onPressIn,
+    disable: props.disable,
+    testOnly_pressed: props.testOnly_pressed,
   };
   return pressProps;
 };
