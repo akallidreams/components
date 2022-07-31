@@ -1,20 +1,30 @@
 // TODO: use styled components to create the custom components
 
 import React from "react";
-import { IColors } from "./types";
+import { IColors, IFontSizes } from "./types";
 
-export const initialTheme: IColors = {
-  primary: "#261665",
-  secondary: "#6A59AA",
-  grey: "#ACACAC",
-  greyLight: "#C5C5C5",
-  greyDark: "#464646",
-  white: "#FFFFFF",
-  extra: {
-    green: "#459EA8",
-    greyExtraLight: "#F8F8F8",
+interface ITheme {
+  colors: IColors;
+  fontSizes: IFontSizes;
+}
+
+export const initialTheme = {
+  colors: {
+    primary: "#261665",
+    secondary: "#6A59AA",
+    grey: "#ACACAC",
+    greyLight: "#C5C5C5",
+    greyDark: "#464646",
+    white: "#FFFFFF",
+  },
+  fontSizes: {
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 20,
+    xl: 26,
   },
 };
 
-export const Theme = React.createContext<IColors>(initialTheme);
+export const Theme = React.createContext<ITheme>(initialTheme);
 export const AkalliProvider = Theme.Provider;

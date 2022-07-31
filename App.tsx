@@ -1,7 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Box from "./src/components/container/Box";
-import { AkalliProvider } from "./src/helpers/themeContext";
+import { StyleSheet, View as RNView } from "react-native";
+import { Center } from "./src/components/View";
+import { Bold, Text, Highlighted } from "./src/components/Text";
+import { AkalliProvider, initialTheme } from "./src/helpers/themeContext";
+import { ThemeProvider } from "styled-components";
 
 // import { configure, getStorybookUI } from "@storybook/react-native";
 
@@ -15,22 +17,18 @@ import { AkalliProvider } from "./src/helpers/themeContext";
 
 export default function App() {
   return (
-    <AkalliProvider value={{ primary: "red" }}>
-      <View>
-        <Box mt={100} pb={10} py={40} bg="primary">
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <StatusBar style="auto" />
-        </Box>
-      </View>
-    </AkalliProvider>
+    <ThemeProvider theme={initialTheme}>
+      <Center bg="primary" p="4%">
+        <Text fontSize="lg" bg="white" width="1px" color="primary" mt="200px">
+          Open up App.tsx to start working on your app!
+        </Text>
+        <StatusBar style="auto" />
+      </Center>
+      <Bold>acho que nao</Bold>
+    </ThemeProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const boxStyles = `
+  marginTop: 5px
+`;
