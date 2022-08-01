@@ -23,17 +23,16 @@ import {
  * @returns {object} Returns a styled component with shortcut based on System UI Theme Specification.
  */
 
-interface IProps
+export interface IView
   extends LayoutProps,
     ColorProps,
     SpaceProps,
     FlexProps,
     PositionProps {
   children: React.ReactNode;
-  ref: any;
 }
 
-export const View = styled.View`
+export const View = styled.View<IView>`
   ${color}
   ${space}
   ${layout}

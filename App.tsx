@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View as RNView } from "react-native";
 import { Center } from "./src/components/View";
-import { Bold, Text, Highlighted } from "./src/components/Text";
+import { Bold, Text, Highlighted, Truncated } from "./src/components/Text";
 import { AkalliProvider, initialTheme } from "./src/helpers/themeContext";
 import { ThemeProvider } from "styled-components";
+import { Button, ButtonIcon } from "./src/components/Button";
 
 // import { configure, getStorybookUI } from "@storybook/react-native";
 
@@ -24,7 +25,12 @@ export default function App() {
         </Text>
         <StatusBar style="auto" />
       </Center>
-      <Bold>acho que nao</Bold>
+      <Truncated length={10}>
+        acho que nao Open up App.tsx to start working on your app!
+      </Truncated>
+      <ButtonIcon IconLeft={() => <Text>ICONE</Text>} bg="primary">
+        <Text color="white">clique em mim</Text>
+      </ButtonIcon>
     </ThemeProvider>
   );
 }
