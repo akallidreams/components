@@ -22,3 +22,33 @@ export interface IFontSizes {
 export interface IFontSources {
   [key: string]: any;
 }
+
+export interface IBase {
+  label: string;
+  type?: string;
+  requiredMessage: string;
+  rules: {};
+  color?: IColor;
+  borderColor?: IColor;
+}
+
+export interface IEmail extends IBase {
+  rules: {
+    pattern: RegExp;
+    message: string;
+  };
+}
+
+export interface IMaxLength extends IBase {
+  maxLength: number;
+  maxLengthMessage: string;
+}
+
+export interface IMinLength extends IBase {
+  minLength: number;
+  minLengthMessage: string;
+}
+
+export interface IRepeatPassword extends ILength {
+  handleSamePassword: () => boolean;
+}

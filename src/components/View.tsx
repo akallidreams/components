@@ -67,4 +67,6 @@ export const Footer = styled(View)``;
 
 export const Header = styled(View)``;
 
+export const ScrollView = styled.ScrollView``;
+
 // export default memo(forwardRef(View));

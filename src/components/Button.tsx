@@ -3,14 +3,14 @@ import styled from "styled-components/native";
 import { themedBG, themedColor, themedFontSize } from "../helpers/styles";
 import { IView, View } from "./View";
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { initialTheme } from "../helpers/themeContext";
 
 interface IButton extends IView {
   children: React.ReactNode | React.ReactNode[];
 }
 
 export const Button = styled.Pressable<IButton>`
-  background-color: #dcdcdc;
+  background-color: ${initialTheme.colors.grey};
   border-radius: 5px;
   flex-direction: row;
   align-self: center;
@@ -23,16 +23,6 @@ export const Button = styled.Pressable<IButton>`
   ${themedBG}
   ${themedFontSize}
 `;
-
-export const ButtonStyledSheet = StyleSheet.flatten(`
-  ${color}
-  ${space}
-  ${layout}
-  ${themedBG}
-  ${themedFontSize}
-`);
-
-// export const ButtonX = () => <Pressable
 
 export const ButtonGhost = styled(Button)`
   background-color: transparent;
