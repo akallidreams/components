@@ -13,6 +13,9 @@ import {
   SpaceProps,
   PositionProps,
 } from "styled-system";
+import { ButtonGhost } from "./Button";
+import { BackIcon, CloseIcon } from "./Icons";
+import { types } from "../helpers";
 
 /**
  * @summary Provides all types of semantic views using styled-components and styled-system.
@@ -63,9 +66,8 @@ export const HSection = styled(View)`
   flex-direction: row;
 `;
 
-export const Footer = styled(View)``;
-
-export const Header = styled(View)``;
+// TODO: Increment this one
+const Footernav = styled(View)``;
 
 export const ScrollView = styled.ScrollView``;
 

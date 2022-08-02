@@ -1,9 +1,9 @@
 import { color, layout, space } from "styled-system";
 import styled from "styled-components/native";
-import { themedBG, themedColor, themedFontSize } from "../helpers/styles";
+import { themedBG, themedFontSize } from "../helpers/styles";
 import { IView, View } from "./View";
 import React from "react";
-import { initialTheme } from "../helpers/themeContext";
+import { initialTheme } from "../helpers";
 
 interface IButton extends IView {
   children: React.ReactNode | React.ReactNode[];
@@ -38,7 +38,6 @@ interface IButtonIcon extends IButton {
 export const ButtonIcon = (props: IButtonIcon) => {
   const { IconLeft, IconRight, children, right, spacing, ...buttonProps } =
     props;
-
   return (
     <Button {...buttonProps}>
       {IconRight ? (

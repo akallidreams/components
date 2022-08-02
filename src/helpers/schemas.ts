@@ -1,103 +1,69 @@
 import { emailRegexPattern } from "./utils";
 import * as SchemasTypes from "./types";
-import { initialTheme } from "./themeContext";
+import { initialTheme } from "./initialTheme";
 
-const base = ({
-  label,
-  requiredMessage,
-  color,
-  borderColor,
-}: SchemasTypes.IBase) => ({
-  rules: {
-    required: requiredMessage,
-  },
+const base = ({ label, color }: SchemasTypes.IBase) => ({
   label,
   name: label,
   type: "text",
   color: color || initialTheme.colors.grey,
-  borderColor: borderColor || initialTheme.colors.grey,
+  borderColor: color || initialTheme.colors.grey,
 });
 
-const maxLength = ({
+const required = ({
+  label,
+  color,
+  requiredMessage,
+  rules,
+}: SchemasTypes.IBase) => ({
+  ...base({ label, requiredMessage, color }),
+  rules: rules || {
+    required: requiredMessage || "",
+  },
+});
+
+const length = ({
+  color,
   label,
   maxLength,
   maxLengthMessage,
+  minLength,
+  minLengthMessage,
   requiredMessage,
-}: SchemasTypes.IMaxLength) => ({
-  ...base({ label, requiredMessage, rules: {} }),
+}: SchemasTypes.ILength) => ({
+  ...base({ label, requiredMessage, color }),
   rules: {
     required: requiredMessage,
     maxLength: {
-      message: maxLength,
-      value: maxLengthMessage,
+      message: maxLengthMessage || "",
+      value: maxLength || Infinity,
+    },
+    minLength: {
+      message: minLengthMessage || "",
+      value: minLength || 0,
     },
   },
 });
 
-const minLength = ({
+const email = ({
   label,
-  minLengthMessage,
-  minLength,
+  invalidEmailMessage,
   requiredMessage,
-}: SchemasTypes.IMinLength) => ({
-  ...base({ label, requiredMessage, rules: {} }),
+  color,
+}: SchemasTypes.IEmail) => ({
+  ...base({ label, requiredMessage, color }),
   rules: {
     required: requiredMessage,
-    minLength: {
-      message: minLength,
-      value: minLengthMessage,
+    pattern: {
+      value: emailRegexPattern,
+      message: invalidEmailMessage,
     },
   },
 });
-
-// const email = ({ label, rules, requiredMessage }: SchemasTypes.IEmail) => ({
-//   ...base({ label, requiredMessage }),
-//   rules: {
-//     required: requiredMessage,
-//     pattern: {
-//       value: emailRegexPattern,
-//       message: rules.message,
-//     },
-//   },
-// });
-
-// const password = ({ label, rules, requiredMessage }: SchemasTypes.ILength) => ({
-//   ...base({ label, requiredMessage }),
-//   type: "password",
-//   rules: {
-//     required: requiredMessage,
-//     [rules.type]: {
-//       message: rules.message,
-//       value: rules.value,
-//     },
-//   },
-// });
-
-// const repeatPassword = ({
-//   label,
-//   rules,
-//   requiredMessage,
-//   handleSamePassword,
-// }: SchemasTypes.IRepeatPassword) => ({
-//   ...base({ label, requiredMessage }),
-//   type: "password",
-//   rules: {
-//     required: requiredMessage,
-//     [rules.type]: {
-//       message: rules.message,
-//       value: rules.value,
-//     },
-//     validate: {
-//       checkSamePassword: handleSamePassword,
-//     },
-//   },
-// });
 
 export const schemas = {
   base,
-  // email,
-  maxLength,
-  minLength,
-  // password,
-  // repeatPassword,
+  email,
+  length,
+  required,
 };

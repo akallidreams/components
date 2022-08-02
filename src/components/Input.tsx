@@ -3,56 +3,61 @@ import styled from "styled-components/native";
 import { schemas } from "../helpers";
 import { Text } from "./Text";
 import { types as SchemasTypes } from "../helpers";
-import { initialTheme } from "../helpers/themeContext";
+import { initialTheme } from "../helpers";
 import { IView } from "./View";
+import { color, space, layout, flexbox, position } from "styled-system";
+import { themedBG, themedBorderColor, themedFontSize } from "../helpers/styles";
 
-export const TextInput = styled.TextInput``;
+export const TextInput = styled.TextInput`
+  ${color}
+  ${space}
+  ${layout}
+  ${flexbox}
+  ${position}
+  ${themedBG}
+  ${themedFontSize}
+  ${themedBorderColor}
+`;
 
-type ISchema =
-  | SchemasTypes.IEmail
-  | SchemasTypes.IMaxLength
-  | SchemasTypes.IMinLength
-  | SchemasTypes.IRepeatPassword
-  | SchemasTypes.IBase;
+type ISchema = SchemasTypes.IEmail | SchemasTypes.ILength | SchemasTypes.IBase;
 interface IProps {
-  schema: any;
+  schema: ISchema;
   errors: FieldErrors;
   control: Control;
 }
 
-// TODO: handle the requiredMessage somewhere
-// This base input generate the other inputs controlled at this point i dont need noRules anymore and just need to inject the schemas at the new comps
+const validateColor = (schema: ISchema, errors: FieldErrors) =>
+  schema.label in errors
+    ? initialTheme.colors.error
+    : schema.color || initialTheme.colors.grey;
+
 export const Input = ({ schema, errors, control }: IProps) => {
   return (
     <>
-      <Text
-        color={
-          schema?.label in errors
-            ? "tomato"
-            : schema?.color || initialTheme.colors.grey
-        }
-      >
-        {schema?.label}
-      </Text>
+      <Text color={validateColor(schema, errors)}>{schema.label}</Text>
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             onBlur={onBlur}
-            placeholder={schema?.placeholder}
-            onChangeText={(val) => onChange(val)}
+            onChangeText={(val: string) => onChange(val)}
             value={value}
-            type={schema?.type}
-            color={schema?.color || initialTheme.colors.grey}
-            borderColor={schema?.borderColor || initialTheme.colors.grey}
+            color={validateColor(schema, errors)}
+            borderColor={validateColor(schema, errors)}
+            style={{
+              borderBottomWidth: 1,
+            }}
           />
         )}
-        name={schema?.label || ""}
+        rules={schema.rules}
+        name={schema.label || ""}
         defaultValue=""
       />
-      {/* {schema && schema?.label in errors ? (
-        <Text color="tomato">{errors?.[schema.label]?.message}</Text>
-      ) : null} */}
+      {schema.label in errors ? (
+        <Text color={initialTheme.colors.error}>
+          {errors?.[schema.label]?.message}
+        </Text>
+      ) : null}
     </>
   );
 };
@@ -61,10 +66,26 @@ export const TextArea = (props: IView) => (
   <TextInput {...props} multiline textAlignVertical="top" />
 );
 
-export const InputMaxLength = (props: IProps) => {
-  console.log(props, "entrou vivo");
-  return <Input {...props} schema={schemas.maxLength(props.schema)} />;
-};
+export const InputLength = (props: IProps) => (
+  <Input
+    {...props}
+    schema={schemas.length(props.schema as SchemasTypes.ILength)}
+  />
+);
+
+export const InputEmail = (props: IProps) => (
+  <Input
+    {...props}
+    schema={schemas.email(props.schema as SchemasTypes.IEmail)}
+  />
+);
+
+export const InputRequired = (props: IProps) => (
+  <Input
+    {...props}
+    schema={schemas.required(props.schema as SchemasTypes.IBase)}
+  />
+);
 
 /**
  @docs

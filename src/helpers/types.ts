@@ -1,8 +1,11 @@
+import { initialTheme } from "./initialTheme";
+
 type RGB = `rgb(${number}, ${number}, ${number})`;
 type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 type HEX = `#${string}`;
 
 export type IColor = RGB | RGBA | HEX;
+
 export interface IColors {
   primary: IColor;
   secondary?: IColor;
@@ -10,6 +13,8 @@ export interface IColors {
   greyLight?: IColor;
   greyDark?: IColor;
   white?: IColor;
+  success?: IColor;
+  error?: IColor;
 }
 
 export interface IFontSizes {
@@ -26,22 +31,21 @@ export interface IFontSources {
 export interface IBase {
   label: string;
   type?: string;
-  requiredMessage: string;
-  rules: {};
-  color?: IColor;
-  borderColor?: IColor;
+  requiredMessage?: string;
+  color?: IColor | keyof IColors;
+  borderColor?: IColor | keyof IColors;
+  rules?: any;
 }
 
 export interface IEmail extends IBase {
-  rules: {
-    pattern: RegExp;
-    message: string;
-  };
+  invalidEmailMessage: string;
 }
 
-export interface IMaxLength extends IBase {
-  maxLength: number;
-  maxLengthMessage: string;
+export interface ILength extends IBase {
+  maxLength?: number;
+  maxLengthMessage?: string;
+  minLength?: number;
+  minLengthMessage?: string;
 }
 
 export interface IMinLength extends IBase {
@@ -52,3 +56,10 @@ export interface IMinLength extends IBase {
 export interface IRepeatPassword extends ILength {
   handleSamePassword: () => boolean;
 }
+
+export interface ITheme {
+  colors: IColors;
+  fontSizes: IFontSizes;
+}
+
+export type IThemeColor = keyof IColors | keyof typeof initialTheme.colors;

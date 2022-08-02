@@ -1,12 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View as RNView } from "react-native";
 import { Center } from "./src/components/View";
-import { Bold, Text, Truncated } from "./src/components/Text";
-import { AkalliProvider, initialTheme } from "./src/helpers/themeContext";
+import { Header } from "./src/components/Header";
+import { Text, Truncated } from "./src/components/Text";
+import { initialTheme } from "./src/helpers";
 import { ThemeProvider } from "styled-components";
 import { Button, ButtonIcon } from "./src/components/Button";
-import { InputMaxLength } from "./src/components/Input";
-import { schemas } from "./src/helpers";
+import { InputLength, InputEmail } from "./src/components/Input";
 import { useForm } from "react-hook-form";
 
 // import { configure, getStorybookUI } from "@storybook/react-native";
@@ -39,16 +38,53 @@ export default function App() {
       <ButtonIcon IconLeft={() => <Text>ICONE</Text>} bg="primary">
         <Text color="white">clique em mim</Text>
       </ButtonIcon>
-      <InputMaxLength
+      <InputLength
         control={control}
         errors={errors}
         schema={{
-          label: "meu input",
+          label: "meuinput",
           maxLength: 5,
           maxLengthMessage: "atingiu meu limite",
           requiredMessage: "campo obrigatorio",
+          color: "primary",
         }}
       />
+      <InputLength
+        control={control}
+        errors={errors}
+        schema={{
+          label: "meu input 2",
+          minLength: 5,
+          minLengthMessage: "n e o suficiente",
+          requiredMessage: "campo obrigatorio",
+          color: "success",
+        }}
+      />
+      <InputEmail
+        control={control}
+        errors={errors}
+        schema={{
+          label: "email",
+          requiredMessage: "campo obrigatorio",
+          invalidEmailMessage: "Email invalido",
+          color: "success",
+        }}
+      />
+      <Button onPress={handleSubmit(() => {})}>
+        <Text>clique me</Text>
+      </Button>
+      <Header
+        bg="primary"
+        icon="close"
+        color="white"
+        action={() => {
+          console.log("ola amigo");
+        }}
+      >
+        <Text color="success" fontSize="lg">
+          meu texto
+        </Text>
+      </Header>
     </ThemeProvider>
   );
 }
