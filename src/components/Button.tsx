@@ -5,11 +5,9 @@ import { IView, View } from "./View";
 import React from "react";
 import { initialTheme } from "../helpers";
 
-interface IButton extends IView {
-  children: React.ReactNode | React.ReactNode[];
-}
+interface IButton extends IView {}
 
-export const Button = styled.Pressable<IButton>`
+const baseButtonStyle = `
   background-color: ${initialTheme.colors.grey};
   border-radius: 5px;
   flex-direction: row;
@@ -17,11 +15,15 @@ export const Button = styled.Pressable<IButton>`
   justify-content: center;
   align-items: center;
   padding: 10px;
+`;
+
+export const Button = styled.Pressable<IButton>`
+  ${baseButtonStyle}
   ${color}
   ${space}
   ${layout}
-  ${themedBG}
-  ${themedFontSize}
+  ${themedBG as any}
+  ${themedFontSize as any}
 `;
 
 export const ButtonGhost = styled(Button)`

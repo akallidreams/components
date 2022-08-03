@@ -1,3 +1,5 @@
+import { ITheme } from "./types";
+
 export const initialTheme: ITheme = {
   colors: {
     primary: "#261665",

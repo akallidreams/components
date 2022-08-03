@@ -48,15 +48,6 @@ export interface ILength extends IBase {
   minLengthMessage?: string;
 }
 
-export interface IMinLength extends IBase {
-  minLength: number;
-  minLengthMessage: string;
-}
-
-export interface IRepeatPassword extends ILength {
-  handleSamePassword: () => boolean;
-}
-
 export interface ITheme {
   colors: IColors;
   fontSizes: IFontSizes;

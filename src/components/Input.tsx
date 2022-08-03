@@ -5,18 +5,19 @@ import { Text } from "./Text";
 import { types as SchemasTypes } from "../helpers";
 import { initialTheme } from "../helpers";
 import { IView } from "./View";
-import { color, space, layout, flexbox, position } from "styled-system";
+import { color, space, layout, flexbox, position, border } from "styled-system";
 import { themedBG, themedBorderColor, themedFontSize } from "../helpers/styles";
 
-export const TextInput = styled.TextInput`
+export const TextInput = styled.TextInput<IView>`
   ${color}
   ${space}
+  ${border}
   ${layout}
   ${flexbox}
   ${position}
-  ${themedBG}
-  ${themedFontSize}
-  ${themedBorderColor}
+  ${themedBG as any}
+  ${themedFontSize as any}
+  ${themedBorderColor as any}
 `;
 
 type ISchema = SchemasTypes.IEmail | SchemasTypes.ILength | SchemasTypes.IBase;
@@ -44,9 +45,7 @@ export const Input = ({ schema, errors, control }: IProps) => {
             value={value}
             color={validateColor(schema, errors)}
             borderColor={validateColor(schema, errors)}
-            style={{
-              borderBottomWidth: 1,
-            }}
+            borderBottomWidth="1px"
           />
         )}
         rules={schema.rules}
@@ -54,7 +53,7 @@ export const Input = ({ schema, errors, control }: IProps) => {
         defaultValue=""
       />
       {schema.label in errors ? (
-        <Text color={initialTheme.colors.error}>
+        <Text data-testId="error-message" color={initialTheme.colors.error}>
           {errors?.[schema.label]?.message}
         </Text>
       ) : null}

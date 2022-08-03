@@ -1,2 +1,34 @@
-export { AkComponents } from "./src";
-export type { AkThemeTypes } from "./src";
+export {
+  InputLength,
+  InputEmail,
+  InputRequired,
+  TextInput,
+  TextArea,
+  Header,
+  View,
+  VCenter,
+  HCenter,
+  VSection,
+  HSection,
+  Center,
+  ScrollView,
+  Text,
+  Bold,
+  Italic,
+  Truncated,
+  Button,
+  ButtonGhost,
+  ButtonIcon,
+} from "./src";
+
+export type {
+  IColors,
+  IColor,
+  IFontSizes,
+  IFontSources,
+  IBase,
+  IEmail,
+  ILength,
+  ITheme,
+  IThemeColor,
+} from "./src";

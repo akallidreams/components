@@ -6,16 +6,17 @@ import {
   space,
   layout,
   flexbox,
+  border,
   position,
   FlexProps,
   LayoutProps,
   ColorProps,
   SpaceProps,
   PositionProps,
+  BorderProps,
+  FlexboxProps,
 } from "styled-system";
-import { ButtonGhost } from "./Button";
-import { BackIcon, CloseIcon } from "./Icons";
-import { types } from "../helpers";
+import { StyledComponentBase } from "styled-components";
 
 /**
  * @summary Provides all types of semantic views using styled-components and styled-system.
@@ -31,18 +32,21 @@ export interface IView
     ColorProps,
     SpaceProps,
     FlexProps,
+    FlexboxProps,
+    BorderProps,
     PositionProps {
-  children: React.ReactNode;
+  children?: React.ReactNode | React.ReactNode[];
 }
 
 export const View = styled.View<IView>`
   ${color}
+  ${border}
   ${space}
   ${layout}
   ${flexbox}
   ${position}
-  ${themedBG}
-  ${themedFontSize}
+  ${themedBG as any}
+  ${themedFontSize as any}
 `;
 
 export const Center = styled(View)`
@@ -62,13 +66,22 @@ export const VSection = styled(View)`
   flex-direction: column;
 `;
 
-export const HSection = styled(View)`
+export const HSection = styled(View)<IView>`
   flex-direction: row;
 `;
 
 // TODO: Increment this one
 const Footernav = styled(View)``;
 
-export const ScrollView = styled.ScrollView``;
+export const ScrollView = styled.ScrollView<IView>`
+  ${color}
+  ${border}
+  ${space}
+  ${layout}
+  ${flexbox}
+  ${position}
+  ${themedBG as any}
+  ${themedFontSize as any}
+`;
 
 // export default memo(forwardRef(View));
