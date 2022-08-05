@@ -5,18 +5,19 @@ import { Center, HSection, View } from "./View";
 
 interface IPropsHeaderIcons {
   icon?: "back" | "close";
-  action: () => void;
+  iconSize?: string;
   color?: types.IThemeColor;
+  onPressIcon: () => void;
 }
 
 const HeaderIcons = (props: IPropsHeaderIcons) =>
   props.icon === "back" ? (
-    <ButtonGhost onPress={() => props.action()}>
-      <BackIcon color={props.color} />
+    <ButtonGhost onPress={props.onPressIcon}>
+      <BackIcon color={props.color} size={props.iconSize} />
     </ButtonGhost>
   ) : props.icon === "close" ? (
-    <ButtonGhost onPress={() => props.action()}>
-      <CloseIcon color={props.color} />
+    <ButtonGhost onPress={props.onPressIcon}>
+      <CloseIcon color={props.color} size={props.iconSize} />
     </ButtonGhost>
   ) : null;
 
@@ -27,7 +28,6 @@ interface IPropsHeader extends IPropsHeaderIcons {
   height?: string | number;
 }
 
-// Make here header with backbutton closebutton useNav and content inside
 export const Header = (props: IPropsHeader) => (
   <Center
     bg={props.bg || "transparent"}
@@ -37,8 +37,9 @@ export const Header = (props: IPropsHeader) => (
     <HSection width="100%" justifyContent="center">
       <View position="absolute" left="5%">
         <HeaderIcons
+          iconSize={props.iconSize}
           icon={props.icon}
-          action={props.action}
+          onPressIcon={props.onPressIcon}
           color={props.color}
         />
       </View>
@@ -46,5 +47,3 @@ export const Header = (props: IPropsHeader) => (
     </HSection>
   </Center>
 );
-
-// TODO: Header with profile prop

@@ -6,7 +6,7 @@ you can easily access all modules in our expo template... $$$$$$$
 
 ## Instalation
 
-`npm install @akalli/components styled-components styled-system react-native-svg @akalli/icons react-hook-form`
+`npm install @akalli/components styled-components styled-system react-native-svg react-hook-form`
 
 Example:
 

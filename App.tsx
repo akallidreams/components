@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Center, ScrollView } from "./src/components/View";
+import { Center, If, ScrollView, View } from "./src/components/View";
 import { Header } from "./src/components/Header";
 import { Text, Truncated } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
@@ -7,7 +7,8 @@ import { ThemeProvider } from "styled-components";
 import { Button, ButtonIcon } from "./src/components/Button";
 import { InputLength, InputEmail } from "./src/components/Input";
 import { useForm } from "react-hook-form";
-import { FlatList, SectionList } from "./src/components/List";
+import { FlatList, For, SectionList } from "./src/components/List";
+import { Component } from "react";
 
 // import { configure, getStorybookUI } from "@storybook/react-native";
 
@@ -80,7 +81,7 @@ export default function App() {
           bg="primary"
           icon="close"
           color="white"
-          action={() => {
+          onPressIcon={() => {
             console.log("ola amigo");
           }}
         >
@@ -89,6 +90,16 @@ export default function App() {
           </Text>
         </Header>
       </ScrollView>
+      <If mb="20px" _condition={true} _else={() => <Text>aqui</Text>}>
+        <Text color="primary">Foi meu if</Text>
+      </If>
+      <For
+        data={[1, 2, 3]}
+        renderItem={({ item, index }) => <Text>{item}</Text>}
+      />
+      <View _condition={7 < 2} _else={() => <Text>rodas</Text>}>
+        <Text color="primary">agora o text aqui</Text>
+      </View>
     </ThemeProvider>
   );
 }

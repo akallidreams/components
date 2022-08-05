@@ -8,7 +8,7 @@ import { IView } from "./View";
 import { color, space, layout, flexbox, position, border } from "styled-system";
 import { themedBG, themedBorderColor, themedFontSize } from "../helpers/styles";
 
-export const TextInput = styled.TextInput<IView>`
+export const TextInput = styled.TextInput<IView | any>`
   ${color}
   ${space}
   ${border}

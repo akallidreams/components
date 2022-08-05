@@ -38,19 +38,18 @@ interface IButtonIcon extends IButton {
 }
 
 export const ButtonIcon = (props: IButtonIcon) => {
-  const { IconLeft, IconRight, children, right, spacing, ...buttonProps } =
-    props;
+  const { IconLeft, IconRight, children, spacing, ...buttonProps } = props;
   return (
     <Button {...buttonProps}>
       {IconRight ? (
         <>
-          <IconRight />
           <View ml={spacing || "10px"}>{children}</View>
+          <IconRight />
         </>
       ) : IconLeft ? (
         <>
-          <View mr={spacing || "10px"}>{children}</View>
           <IconLeft />
+          <View mr={spacing || "10px"}>{children}</View>
         </>
       ) : null}
     </Button>

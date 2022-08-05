@@ -1,6 +1,10 @@
-import * as ComponentsTypes from "./helpers/types";
-
 export {
+  InputLength,
+  InputEmail,
+  InputRequired,
+  TextInput,
+  TextArea,
+  Header,
   View,
   VCenter,
   HCenter,
@@ -8,17 +12,18 @@ export {
   HSection,
   Center,
   ScrollView,
-} from "./components/View";
-export { Button, ButtonGhost, ButtonIcon } from "./components/Button";
-export { Text, Bold, Italic, Truncated } from "./components/Text";
-export {
-  InputLength,
-  InputEmail,
-  InputRequired,
-  TextInput,
-  TextArea,
-} from "./components/Input";
-export { Header } from "./components/Header";
+  Text,
+  Bold,
+  Italic,
+  Truncated,
+  Button,
+  ButtonGhost,
+  ButtonIcon,
+  FlatList,
+  SectionList,
+  For,
+  If,
+} from "./components";
 
 export type {
   IColors,

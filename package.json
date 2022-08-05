@@ -1,7 +1,7 @@
 {
   "name": "@akalli/components",
-  "version": "0.1.0",
-  "main": "",
+  "version": "0.1.1",
+  "main": "node_modules/expo/AppEntry.js",
   "files": [
     "src/*.tsx",
     "src/**/&.tsx",
