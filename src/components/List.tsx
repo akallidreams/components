@@ -31,10 +31,16 @@ export const FlatList = styled.FlatList<IFlatList | any>`
   ${themedFontSize as any}
 `;
 
-export const For = (props: IFlatList | any) => {
+interface IFor extends IFlatList {
+  _list: any;
+}
+
+export const For = (props: IFor | any) => {
+  const { _list, ...rest } = props;
   return (
     <FlatList
-      {...props}
+      {...rest}
+      data={_list}
       keyExtractor={() => +new Date().toString() + Math.random().toString()}
     />
   );

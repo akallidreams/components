@@ -100,20 +100,20 @@ export const If = (props: IIf) => {
 interface IViewSuper extends IView {
   _condition?: boolean;
   _else?: React.ReactNode;
-  _for?: any;
+  _list?: any;
   _item?: React.ReactNode;
 }
 
 export const View = (props: IViewSuper) => {
-  const { _condition, _else, _for, _item, children, ...rest } = props;
+  const { _condition, _else, _list, _item, children, ...rest } = props;
   if (_condition !== undefined) {
     return (
       <If _condition={_condition} _else={_else} {...rest}>
         {children}
       </If>
     );
-  } else if (_for !== undefined) {
-    return <For data={_for} renderItem={_item} {...rest} />;
+  } else if (_list !== undefined) {
+    return <For _list={_list} _item={_item} {...rest} />;
   }
   return <StyledView {...rest}>{children}</StyledView>;
 };

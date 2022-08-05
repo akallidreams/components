@@ -22,9 +22,9 @@ export const TextInput = styled.TextInput<IView | any>`
 
 type ISchema = SchemasTypes.IEmail | SchemasTypes.ILength | SchemasTypes.IBase;
 interface IProps {
-  schema: ISchema;
-  errors: FieldErrors;
-  control: Control;
+  _schema: ISchema;
+  _errors: FieldErrors;
+  _control: Control;
 }
 
 const validateColor = (schema: ISchema, errors: FieldErrors) =>
@@ -32,29 +32,29 @@ const validateColor = (schema: ISchema, errors: FieldErrors) =>
     ? initialTheme.colors.error
     : schema.color || initialTheme.colors.grey;
 
-export const Input = ({ schema, errors, control }: IProps) => {
+export const Input = ({ _schema, _errors, _control }: IProps) => {
   return (
     <>
-      <Text color={validateColor(schema, errors)}>{schema.label}</Text>
+      <Text color={validateColor(_schema, _errors)}>{_schema.label}</Text>
       <Controller
-        control={control}
+        control={_control}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             onBlur={onBlur}
             onChangeText={(val: string) => onChange(val)}
             value={value}
-            color={validateColor(schema, errors)}
-            borderColor={validateColor(schema, errors)}
+            color={validateColor(_schema, _errors)}
+            borderColor={validateColor(_schema, _errors)}
             borderBottomWidth="1px"
           />
         )}
-        rules={schema.rules}
-        name={schema.label || ""}
+        rules={_schema.rules}
+        name={_schema.label || ""}
         defaultValue=""
       />
-      {schema.label in errors ? (
+      {_schema.label in _errors ? (
         <Text data-testId="error-message" color={initialTheme.colors.error}>
-          {errors?.[schema.label]?.message}
+          {_errors?.[_schema.label]?.message}
         </Text>
       ) : null}
     </>
@@ -68,21 +68,21 @@ export const TextArea = (props: IView) => (
 export const InputLength = (props: IProps) => (
   <Input
     {...props}
-    schema={schemas.length(props.schema as SchemasTypes.ILength)}
+    _schema={schemas.length(props._schema as SchemasTypes.ILength)}
   />
 );
 
 export const InputEmail = (props: IProps) => (
   <Input
     {...props}
-    schema={schemas.email(props.schema as SchemasTypes.IEmail)}
+    _schema={schemas.email(props._schema as SchemasTypes.IEmail)}
   />
 );
 
 export const InputRequired = (props: IProps) => (
   <Input
     {...props}
-    schema={schemas.required(props.schema as SchemasTypes.IBase)}
+    _schema={schemas.required(props._schema as SchemasTypes.IBase)}
   />
 );
 

@@ -4,26 +4,25 @@ import { BackIcon, CloseIcon } from "./Icons";
 import { Center, HSection, View } from "./View";
 
 interface IPropsHeaderIcons {
-  icon?: "back" | "close";
-  iconSize?: string;
+  _icon?: "back" | "close";
+  _iconSize?: string;
   color?: types.IThemeColor;
-  onPressIcon: () => void;
+  _onPressIcon: () => void;
 }
 
 const HeaderIcons = (props: IPropsHeaderIcons) =>
-  props.icon === "back" ? (
-    <ButtonGhost onPress={props.onPressIcon}>
-      <BackIcon color={props.color} size={props.iconSize} />
+  props._icon === "back" ? (
+    <ButtonGhost onPress={props._onPressIcon}>
+      <BackIcon color={props.color} size={props._iconSize} />
     </ButtonGhost>
-  ) : props.icon === "close" ? (
-    <ButtonGhost onPress={props.onPressIcon}>
-      <CloseIcon color={props.color} size={props.iconSize} />
+  ) : props._icon === "close" ? (
+    <ButtonGhost onPress={props._onPressIcon}>
+      <CloseIcon color={props.color} size={props._iconSize} />
     </ButtonGhost>
   ) : null;
 
 interface IPropsHeader extends IPropsHeaderIcons {
   bg?: types.IThemeColor;
-  back?: boolean;
   children: React.ReactNode | React.ReactNode[];
   height?: string | number;
 }
@@ -37,9 +36,9 @@ export const Header = (props: IPropsHeader) => (
     <HSection width="100%" justifyContent="center">
       <View position="absolute" left="5%">
         <HeaderIcons
-          iconSize={props.iconSize}
-          icon={props.icon}
-          onPressIcon={props.onPressIcon}
+          _iconSize={props._iconSize}
+          _icon={props._icon}
+          _onPressIcon={props._onPressIcon}
           color={props.color}
         />
       </View>

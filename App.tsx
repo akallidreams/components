@@ -42,9 +42,9 @@ export default function App() {
           <Text color="white">clique em mim</Text>
         </ButtonIcon>
         <InputLength
-          control={control}
-          errors={errors}
-          schema={{
+          _control={control}
+          _errors={errors}
+          _schema={{
             label: "meuinput",
             maxLength: 5,
             maxLengthMessage: "atingiu meu limite",
@@ -53,9 +53,9 @@ export default function App() {
           }}
         />
         <InputLength
-          control={control}
-          errors={errors}
-          schema={{
+          _control={control}
+          _errors={errors}
+          _schema={{
             label: "meu input 2",
             minLength: 5,
             minLengthMessage: "n e o suficiente",
@@ -64,9 +64,9 @@ export default function App() {
           }}
         />
         <InputEmail
-          control={control}
-          errors={errors}
-          schema={{
+          _control={control}
+          _errors={errors}
+          _schema={{
             label: "email",
             requiredMessage: "campo obrigatorio",
             invalidEmailMessage: "Email invalido",
@@ -79,9 +79,9 @@ export default function App() {
         <Header
           height="600px"
           bg="primary"
-          icon="close"
+          _icon="close"
           color="white"
-          onPressIcon={() => {
+          _onPressIcon={() => {
             console.log("ola amigo");
           }}
         >
@@ -93,10 +93,7 @@ export default function App() {
       <If mb="20px" _condition={true} _else={() => <Text>aqui</Text>}>
         <Text color="primary">Foi meu if</Text>
       </If>
-      <For
-        data={[1, 2, 3]}
-        renderItem={({ item, index }) => <Text>{item}</Text>}
-      />
+      <For _list={[1, 2, 3]} _item={({ item, index }) => <Text>{item}</Text>} />
       <View _condition={7 < 2} _else={() => <Text>rodas</Text>}>
         <Text color="primary">agora o text aqui</Text>
       </View>
