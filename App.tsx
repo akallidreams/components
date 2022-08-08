@@ -7,18 +7,8 @@ import { ThemeProvider } from "styled-components";
 import { Button, ButtonIcon } from "./src/components/Button";
 import { InputLength, InputEmail } from "./src/components/Input";
 import { useForm } from "react-hook-form";
-import { FlatList, For, SectionList } from "./src/components/List";
-import { Component } from "react";
-
-// import { configure, getStorybookUI } from "@storybook/react-native";
-
-// configure(() => {
-//   // Since require.context doesn't exist in metro bundler world, we have to
-//   // manually import files ending in *.stories.js
-//   require("./.storybook/stories");
-// }, module);
-
-// export default getStorybookUI();
+import { For } from "./src/components/List";
+import { useState } from "react";
 
 export default function App() {
   const {
@@ -26,6 +16,11 @@ export default function App() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [count, setCounter] = useState(0);
+  const handlePress = () => {
+    setCounter(count + 1);
+  };
+
   return (
     <ThemeProvider theme={initialTheme}>
       <ScrollView>
@@ -97,6 +92,11 @@ export default function App() {
       <View _condition={7 < 2} _else={() => <Text>rodas</Text>}>
         <Text color="primary">agora o text aqui</Text>
       </View>
+      <Truncated length={10}>{count}</Truncated>
+      <Truncated length={10}>VAZIO</Truncated>
+      <Button onPress={handlePress}>
+        <Text>Add</Text>
+      </Button>
     </ThemeProvider>
   );
 }

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { types } from "../helpers";
 import { ButtonGhost } from "./Button";
 import { BackIcon, CloseIcon } from "./Icons";
@@ -10,7 +11,7 @@ interface IPropsHeaderIcons {
   _onPressIcon: () => void;
 }
 
-const HeaderIcons = (props: IPropsHeaderIcons) =>
+const HeaderIcons = memo((props: IPropsHeaderIcons) =>
   props._icon === "back" ? (
     <ButtonGhost onPress={props._onPressIcon}>
       <BackIcon color={props.color} size={props._iconSize} />
@@ -19,7 +20,8 @@ const HeaderIcons = (props: IPropsHeaderIcons) =>
     <ButtonGhost onPress={props._onPressIcon}>
       <CloseIcon color={props.color} size={props._iconSize} />
     </ButtonGhost>
-  ) : null;
+  ) : null
+);
 
 interface IPropsHeader extends IPropsHeaderIcons {
   bg?: types.IThemeColor;
@@ -27,7 +29,7 @@ interface IPropsHeader extends IPropsHeaderIcons {
   height?: string | number;
 }
 
-export const Header = (props: IPropsHeader) => (
+export const Header = memo((props: IPropsHeader) => (
   <Center
     bg={props.bg || "transparent"}
     height={props.height || "12%"}
@@ -45,4 +47,4 @@ export const Header = (props: IPropsHeader) => (
       <View>{props.children}</View>
     </HSection>
   </Center>
-);
+));

@@ -7,8 +7,9 @@ import { initialTheme } from "../helpers";
 import { IView } from "./View";
 import { color, space, layout, flexbox, position, border } from "styled-system";
 import { themedBG, themedBorderColor, themedFontSize } from "../helpers/styles";
+import { memo } from "react";
 
-export const TextInput = styled.TextInput<IView | any>`
+export const TextInput = memo(styled.TextInput<IView | any>`
   ${color}
   ${space}
   ${border}
@@ -18,7 +19,7 @@ export const TextInput = styled.TextInput<IView | any>`
   ${themedBG as any}
   ${themedFontSize as any}
   ${themedBorderColor as any}
-`;
+`);
 
 type ISchema = SchemasTypes.IEmail | SchemasTypes.ILength | SchemasTypes.IBase;
 interface IProps {
@@ -32,7 +33,7 @@ const validateColor = (schema: ISchema, errors: FieldErrors) =>
     ? initialTheme.colors.error
     : schema.color || initialTheme.colors.grey;
 
-export const Input = ({ _schema, _errors, _control }: IProps) => {
+export const Input = memo(({ _schema, _errors, _control }: IProps) => {
   return (
     <>
       <Text color={validateColor(_schema, _errors)}>{_schema.label}</Text>
@@ -59,32 +60,32 @@ export const Input = ({ _schema, _errors, _control }: IProps) => {
       ) : null}
     </>
   );
-};
+});
 
-export const TextArea = (props: IView) => (
+export const TextArea = memo((props: IView) => (
   <TextInput {...props} multiline textAlignVertical="top" />
-);
+));
 
-export const InputLength = (props: IProps) => (
+export const InputLength = memo((props: IProps) => (
   <Input
     {...props}
     _schema={schemas.length(props._schema as SchemasTypes.ILength)}
   />
-);
+));
 
-export const InputEmail = (props: IProps) => (
+export const InputEmail = memo((props: IProps) => (
   <Input
     {...props}
     _schema={schemas.email(props._schema as SchemasTypes.IEmail)}
   />
-);
+));
 
-export const InputRequired = (props: IProps) => (
+export const InputRequired = memo((props: IProps) => (
   <Input
     {...props}
     _schema={schemas.required(props._schema as SchemasTypes.IBase)}
   />
-);
+));
 
 /**
  @docs

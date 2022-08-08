@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import React, { memo } from "react";
 import { themedBG, themedFontSize } from "../helpers/styles";
 import styled from "styled-components/native";
 import {
@@ -40,7 +40,7 @@ export interface IView
 
 interface IScrollView extends ScrollViewProps, IView {}
 
-export const StyledView = styled.View<IView | any>`
+export const StyledView = memo(styled.View<IView | any>`
   ${color}
   ${border}
   ${space}
@@ -49,34 +49,34 @@ export const StyledView = styled.View<IView | any>`
   ${position}
   ${themedBG as any}
   ${themedFontSize as any}
-`;
+`);
 
-export const Center = styled(StyledView)`
+export const Center = memo(styled(StyledView)`
   justify-content: center;
   align-items: center;
-`;
+`);
 
-export const VCenter = styled(StyledView)`
+export const VCenter = memo(styled(StyledView)`
   align-items: center;
-`;
+`);
 
-export const HCenter = styled(StyledView)`
+export const HCenter = memo(styled(StyledView)`
   justify-content: center;
-`;
+`);
 
-export const VSection = styled(StyledView)`
+export const VSection = memo(styled(StyledView)`
   flex-direction: column;
-`;
+`);
 
-export const HSection = styled(StyledView)<IView>`
+export const HSection = memo(styled(StyledView)<IView>`
   flex-direction: row;
-`;
+`);
 
 // TODO: Increment this one
-const Footernav = styled(StyledView)``;
+const Footernav = memo(styled(StyledView)``);
 
 // TODO: pick the TS here
-export const ScrollView = styled.ScrollView<IScrollView | any>`
+export const ScrollView = memo(styled.ScrollView<IScrollView | any>`
   ${color}
   ${border}
   ${space}
@@ -85,17 +85,17 @@ export const ScrollView = styled.ScrollView<IScrollView | any>`
   ${position}
   ${themedBG as any}
   ${themedFontSize as any}
-`;
+`);
 
 interface IIf extends IView {
   _else: React.ReactNode;
   _condition: boolean;
 }
 
-export const If = (props: IIf) => {
+export const If = memo((props: IIf) => {
   const { _else, _condition, children, ...rest } = props;
   return <StyledView {...rest}>{_condition ? children : _else()}</StyledView>;
-};
+});
 
 interface IViewSuper extends IView {
   _condition?: boolean;
@@ -104,7 +104,7 @@ interface IViewSuper extends IView {
   _item?: React.ReactNode;
 }
 
-export const View = (props: IViewSuper) => {
+export const View = memo((props: IViewSuper | any) => {
   const { _condition, _else, _list, _item, children, ...rest } = props;
   if (_condition !== undefined) {
     return (
@@ -116,6 +116,6 @@ export const View = (props: IViewSuper) => {
     return <For _list={_list} _item={_item} {...rest} />;
   }
   return <StyledView {...rest}>{children}</StyledView>;
-};
+});
 
 // export default memo(forwardRef(View));

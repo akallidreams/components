@@ -14,7 +14,7 @@ import {
 } from "styled-system";
 import styled from "styled-components/native";
 import { themedBG, themedColor, themedFontSize } from "../helpers/styles";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { TextProps } from "react-native";
 
 interface IText
@@ -32,7 +32,7 @@ interface ITruncated extends IText {
   length: number;
 }
 
-export const Text = styled.Text<IText>`
+export const Text = memo(styled.Text<IText>`
   ${color}
   ${border}
   ${space}
@@ -42,17 +42,17 @@ export const Text = styled.Text<IText>`
   ${themedColor as any}
   ${themedFontSize as any}
   ${themedBG as any}
-`;
+`);
 
-export const Bold = styled(Text)`
+export const Bold = memo(styled(Text)`
   font-weight: bold;
-`;
+`);
 
-export const Italic = styled(Text)`
+export const Italic = memo(styled(Text)`
   font-style: italic;
-`;
+`);
 
-export const Truncated = (props: ITruncated) => {
+export const Truncated = memo((props: ITruncated) => {
   const [text, setText] = useState<ITruncated["children"]>(props.children);
   const { length, ...textProps } = props;
   useEffect(() => {
@@ -61,9 +61,11 @@ export const Truncated = (props: ITruncated) => {
       if (length < actualLength) {
         setText(`${props.children.slice(0, length)}...`);
       }
+    } else {
+      setText(props.children);
     }
-  });
+  }, [props.children, length]);
   return <Text {...textProps}>{text}</Text>;
-};
+});
 
 // export default memo(forwardRef(Text));
