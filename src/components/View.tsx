@@ -113,7 +113,7 @@ interface IViewSuper extends IView {
   _item?: React.ReactNode;
 }
 
-export const View = memo((props: IViewSuper) => {
+export const View = memo((props: IViewSuper | any) => {
   const { _condition, _else, _list, _item, children, ...rest } = props;
   if (_condition !== undefined) {
     return (
