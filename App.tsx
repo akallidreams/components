@@ -89,7 +89,7 @@ export default function App() {
         <Text color="primary">Foi meu if</Text>
       </If>
       <For _list={[1, 2, 3]} _item={({ item, index }) => <Text>{item}</Text>} />
-      <View _condition={7 < 2} _else={() => <Text>rodas</Text>}>
+      <View _condition={7 < 2} _else={() => <Text>rodas</Text>} mt="20px">
         <Text color="primary">agora o text aqui</Text>
       </View>
       <Truncated length={10}>{count}</Truncated>

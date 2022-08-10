@@ -15,6 +15,8 @@ import {
   PositionProps,
   BorderProps,
   FlexboxProps,
+  BackgroundProps,
+  BorderColorProps,
 } from "styled-system";
 import { ViewProps, ScrollViewProps } from "react-native";
 import { For } from "./List";
@@ -36,11 +38,14 @@ export interface IView
     FlexboxProps,
     BorderProps,
     PositionProps,
+    BorderProps,
+    BorderColorProps,
+    BackgroundProps,
     ViewProps {}
 
 interface IScrollView extends ScrollViewProps, IView {}
 
-export const StyledView = memo(styled.View<IView | any>`
+export const StyledView = memo(styled.View<IView>`
   ${color}
   ${border}
   ${space}

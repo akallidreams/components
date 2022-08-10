@@ -31,6 +31,7 @@ export interface IFontSources {
 export interface IBase {
   label: string;
   type?: string;
+  width?: string | number;
   requiredMessage?: string;
   color?: IColor | keyof IColors;
   borderColor?: IColor | keyof IColors;

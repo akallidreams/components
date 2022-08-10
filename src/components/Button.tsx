@@ -1,12 +1,17 @@
-import { color, layout, space } from "styled-system";
+import { color, ColorProps, layout, space } from "styled-system";
 import styled from "styled-components/native";
 import { themedBG, themedFontSize } from "../helpers/styles";
 import { IView, View } from "./View";
 import React, { memo } from "react";
 import { initialTheme } from "../helpers";
-import { ButtonProps } from "react-native";
+import { PressableProps } from "react-native";
 
-interface IButton extends IView, ButtonProps {}
+interface IButton extends IView, PressableProps {
+  color?: string;
+  children?: React.ElementType | React.ReactNode;
+  hitSlop?: any;
+  style?: any;
+}
 
 const baseButtonStyle = `
   background-color: ${initialTheme.colors.grey};
@@ -36,21 +41,23 @@ interface IButtonIcon extends IButton {
   _iconLeft?: React.ElementType;
   _iconRight?: React.ElementType;
   _spacing?: string;
+  bg?: string;
+  title?: string;
 }
 
-export const ButtonIcon = memo((props: IButtonIcon) => {
+export const ButtonIcon = memo((props: IButtonIcon | any) => {
   const { _iconLeft, _iconRight, children, _spacing, ...buttonProps } = props;
   return (
     <Button {...buttonProps}>
       {_iconRight ? (
         <>
-          <View ml={_spacing || "10px"}>{children}</View>
+          <View mr={_spacing || "10px"}>{children}</View>
           <_iconRight />
         </>
       ) : _iconLeft ? (
         <>
           <_iconLeft />
-          <View mr={_spacing || "10px"}>{children}</View>
+          <View ml={_spacing || "10px"}>{children}</View>
         </>
       ) : null}
     </Button>
