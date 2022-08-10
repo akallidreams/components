@@ -88,13 +88,17 @@ export const ScrollView = memo(styled.ScrollView<IScrollView | any>`
 `);
 
 interface IIf extends IView {
-  _else: React.ReactNode;
+  _else?: React.ReactNode;
   _condition: boolean;
 }
 
 export const If = memo((props: IIf) => {
   const { _else, _condition, children, ...rest } = props;
-  return <StyledView {...rest}>{_condition ? children : _else()}</StyledView>;
+  return (
+    <StyledView {...rest}>
+      {_condition ? children : _else && _else()}
+    </StyledView>
+  );
 });
 
 interface IViewSuper extends IView {
@@ -104,7 +108,7 @@ interface IViewSuper extends IView {
   _item?: React.ReactNode;
 }
 
-export const View = memo((props: IViewSuper | any) => {
+export const View = memo((props: IViewSuper) => {
   const { _condition, _else, _list, _item, children, ...rest } = props;
   if (_condition !== undefined) {
     return (

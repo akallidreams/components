@@ -1,4 +1,4 @@
-# Quick start
+Quick start
 
 This library is part of a larger framework with many solutions that you can access at www.akalli-framework.com. All the modules are independent so you can use it without the other ones but we recommend give it a try due the fact they make much easier to implement the features navigation(@akalli/navigation), global state(@akalli/state) and icons(@akalli/icons) this last one is included here.
 

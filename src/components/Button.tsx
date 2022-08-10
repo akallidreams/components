@@ -4,8 +4,9 @@ import { themedBG, themedFontSize } from "../helpers/styles";
 import { IView, View } from "./View";
 import React, { memo } from "react";
 import { initialTheme } from "../helpers";
+import { ButtonProps } from "react-native";
 
-interface IButton extends IView {}
+interface IButton extends IView, ButtonProps {}
 
 const baseButtonStyle = `
   background-color: ${initialTheme.colors.grey};
@@ -32,24 +33,24 @@ export const ButtonGhost = memo(styled(Button)`
 `);
 
 interface IButtonIcon extends IButton {
-  IconLeft?: React.ElementType;
-  IconRight?: React.ElementType;
-  spacing?: string;
+  _iconLeft?: React.ElementType;
+  _iconRight?: React.ElementType;
+  _spacing?: string;
 }
 
 export const ButtonIcon = memo((props: IButtonIcon) => {
-  const { IconLeft, IconRight, children, spacing, ...buttonProps } = props;
+  const { _iconLeft, _iconRight, children, _spacing, ...buttonProps } = props;
   return (
     <Button {...buttonProps}>
-      {IconRight ? (
+      {_iconRight ? (
         <>
-          <View ml={spacing || "10px"}>{children}</View>
-          <IconRight />
+          <View ml={_spacing || "10px"}>{children}</View>
+          <_iconRight />
         </>
-      ) : IconLeft ? (
+      ) : _iconLeft ? (
         <>
-          <IconLeft />
-          <View mr={spacing || "10px"}>{children}</View>
+          <_iconLeft />
+          <View mr={_spacing || "10px"}>{children}</View>
         </>
       ) : null}
     </Button>
