@@ -1,4 +1,8 @@
-Quick start
+# Overview
+
+This library is part of a larger framework with many solutions that you can access at [here](https://github.com/akallidreams/create-akalli-app). All the modules are independent so you can use it without the other ones but we recommend give it a try due the fact they make much easier to implement the features navigation[(@akalli/navigation)](https://github.com/akallidreams/navigation), global state[(@akalli/state)](https://github.com/akallidreams/state), smart components[(@akalli/components)](https://github.com/akallidreams/components) and icons[(@akalli/icons)](https://github.com/akallidreams/icons).
+
+## Quick start
 
 This library is part of a larger framework with many solutions that you can access at www.akalli-framework.com. All the modules are independent so you can use it without the other ones but we recommend give it a try due the fact they make much easier to implement the features navigation(@akalli/navigation), global state(@akalli/state) and icons(@akalli/icons) this last one is included here.
 
