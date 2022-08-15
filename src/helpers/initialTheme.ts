@@ -18,4 +18,10 @@ export const initialTheme: ITheme = {
     lg: 20,
     xl: 26,
   },
+  variants: {
+    button: `
+      background-color: pink;
+      height: 200px;
+    `,
+  },
 };

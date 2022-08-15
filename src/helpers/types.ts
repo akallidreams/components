@@ -1,3 +1,6 @@
+import { ComponentType } from "react";
+import { StyledComponent } from "styled-components";
+import styled, { DefaultTheme } from "styled-components/native";
 import { initialTheme } from "./initialTheme";
 
 type RGB = `rgb(${number}, ${number}, ${number})`;
@@ -49,9 +52,22 @@ export interface ILength extends IBase {
   minLengthMessage?: string;
 }
 
-export interface ITheme {
+export interface ITheme extends DefaultTheme {
   colors: IColors;
   fontSizes: IFontSizes;
+  variants: any;
 }
+export interface IMakeStyledComponentProps {
+  _style?: any;
+  _variant?: string;
+  theme: ITheme;
+  extraProps?: string;
+}
+export type IMakeStyledComponent = StyledComponent<
+  ComponentType<any>,
+  any,
+  {},
+  never
+>;
 
 export type IThemeColor = keyof IColors | keyof typeof initialTheme.colors;

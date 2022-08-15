@@ -6,7 +6,6 @@ export {
   HSection,
   Center,
   ScrollView,
-  If,
 } from "./View";
 export { Button, ButtonGhost, ButtonIcon } from "./Button";
 export { Text, Bold, Italic, Truncated } from "./Text";

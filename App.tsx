@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { Center, If, ScrollView, View } from "./src/components/View";
+import {
+  Center,
+  If,
+  ScrollView,
+  StyledView,
+  View,
+} from "./src/components/View";
 import { Header } from "./src/components/Header";
 import { Text, Truncated } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
@@ -9,6 +15,7 @@ import { InputLength, InputEmail } from "./src/components/Input";
 import { useForm } from "react-hook-form";
 import { For } from "./src/components/List";
 import { useState } from "react";
+import { ITheme } from "./src";
 
 export default function App() {
   const {
@@ -23,7 +30,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={initialTheme}>
-      <ScrollView>
+      {/* <ScrollView>
         <Center bg="primary" p="4%">
           <Text fontSize="lg" bg="white" color="primary" mt="200px">
             Open up App.tsx to start working on your app!
@@ -96,7 +103,24 @@ export default function App() {
       <Truncated length={10}>VAZIO</Truncated>
       <Button onPress={handlePress}>
         <Text>Add</Text>
-      </Button>
+      </Button> */}
+      <View _style={styles.container}>
+        <Text>oi</Text>
+      </View>
+      <Center _style={styles.center} _variant="button">
+        <Text>oi 2</Text>
+      </Center>
     </ThemeProvider>
   );
 }
+
+const styles = {
+  container: `
+    background-color: ${initialTheme.colors.secondary};
+    width: 100px;
+    color: white;
+  `,
+  center: `
+    width: 100px;
+  `,
+};
