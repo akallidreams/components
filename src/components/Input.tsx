@@ -1,16 +1,12 @@
 import { useTheme } from "styled-components/native";
 import { Text } from "./Text";
-import { forwardRef, memo, useRef, useState } from "react";
-import {
-  TextInputProps,
-  TextInput as RNTextInput,
-  StyleSheet,
-} from "react-native";
+import { forwardRef, LegacyRef, memo, useState } from "react";
+import { TextInputProps, TextInput as RNTextInput } from "react-native";
 import { IMakeStyledComponent, ITheme } from "../helpers/types";
 import { makeStyledComponent } from "../helpers/styles";
 
 /**
- * @params This module needs react-hook-form, yup and @hookform/resolvers
+ * @params this module needs yup to validation 
  * @example
     import * as yup from "yup";
 
@@ -19,10 +15,19 @@ import { makeStyledComponent } from "../helpers/styles";
       password: yup.string().min(8).max(32).required(),
     });
 
-     const { 
-        register, handleSubmit, formState: { errors }, reset } = useForm({
-      resolver: yupResolver(schema),
-  });
+     pass the register prop from useForm to validate the form
+
+  @styling
+     You can style the input with the following props:
+      - colors:
+        - main: the main color of the input
+        - error: the color of the input when it has an error
+      
+      the rest you can add to a prop called style and pass 
+      it to the TextInput component using camelCase syntax
+
+    If you want more conrtrol over the input you can import TextInput from 
+    our lib that is the common input without validation and you can style using our main syntax
  * 
  */
 
@@ -34,12 +39,10 @@ interface ITextInput extends TextInputProps {
 export const TextInput = memo(
   forwardRef((props: ITextInput, ref) => {
     const { _style, _variant, children, ...rest } = props;
-    const theme: ITheme = useTheme() as ITheme;
     const RenderComponent: IMakeStyledComponent = makeStyledComponent(
       {
         _style,
         _variant,
-        theme,
       },
       RNTextInput
     );
@@ -52,17 +55,21 @@ export const TextInput = memo(
 );
 
 interface IProps extends ITextInput {
-  _errors: FieldErrors;
-  _register: UseFormRegister<any>;
-  _colors: {
+  _register: {
+    onChangeText: (key: string) => (value: string) => void;
+    onBlur: () => void;
+    _errors: { [key: string]: string } | {};
+  };
+  _colors?: {
     error: string;
     main: string;
   };
+  _placeholder?: string;
   _label: string;
 }
 
 interface IValidateColor {
-  _errors: FieldErrors;
+  _errors: { [key: string]: string } | {};
   _colors: {
     error: string;
     main: string;
@@ -78,16 +85,16 @@ const validateColor = ({ _colors, _errors, inputName }: IValidateColor) => {
 };
 
 export const Input = memo(
-  forwardRef((props: IProps, ref) => {
+  forwardRef((props: IProps, ref: LegacyRef<RNTextInput> | undefined) => {
     const {
       _style,
       _variant,
+      _placeholder,
       _register: { onChangeText, _errors, ...register },
       _colors = { error: "red", main: "blue" },
       _label,
       ...rest
     } = props;
-    // TODO: check if this is making re-rendering
     const inputName = _label.toLowerCase().trim().replace(/ /g, "_");
     const [value, setValue] = useState("");
     return (
@@ -104,18 +111,18 @@ export const Input = memo(
             setValue(text);
             onChangeText(inputName)(text);
           }}
-          {...rest}
+          placeholder={_placeholder}
           value={value}
           style={{
             color: validateColor({ _colors, _errors, inputName }),
             borderColor: validateColor({ _colors, _errors, inputName }),
             borderWidth: 1,
           }}
-          name={inputName}
+          {...rest}
         />
         {inputName in _errors ? (
           <Text data-testId="error-message" _style={`color: ${_colors.error}`}>
-            {_errors?.[inputName]}
+            {_errors?.[inputName as keyof typeof _errors]}
           </Text>
         ) : null}
       </>
@@ -123,41 +130,9 @@ export const Input = memo(
   })
 );
 
-const styles = StyleSheet.flatten({});
-
 export const TextArea = memo((props: ITextInput) => (
   <TextInput {...props} multiline _style="text-align-vertical: top" />
 ));
-
-// export const InputLength = memo((props: IProps | any) => {
-//   const { _schema, ...rest } = props;
-//   return (
-//     <Input
-//       {...rest}
-//       _schema={schemas.length(props._schema as SchemasTypes.ILength)}
-//     />
-//   );
-// });
-
-// export const InputEmail = memo((props: IProps | any) => {
-//   const { _schema, ...rest } = props;
-//   return (
-//     <Input
-//       {...rest}
-//       _schema={schemas.email(props._schema as SchemasTypes.IEmail)}
-//     />
-//   );
-// });
-
-// export const InputRequired = memo((props: IProps | any) => {
-//   const { _schema, ...rest } = props;
-//   return (
-//     <Input
-//       {...rest}
-//       _schema={schemas.required(props._schema as SchemasTypes.IBase)}
-//     />
-//   );
-// });
 
 /**
  @docs

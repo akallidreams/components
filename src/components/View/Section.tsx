@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import { View } from "./View";
 
 const extraProps = {
@@ -6,20 +6,24 @@ const extraProps = {
   VSection: `flex-direction: column;`,
 };
 
-export const HSection = memo((props: any) => {
-  const { children, ...rest } = props;
-  return (
-    <View _extraProps={extraProps.HSection} {...rest}>
-      {children}
-    </View>
-  );
-});
+export const HSection = memo(
+  forwardRef((props: any, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <View _extraProps={extraProps.HSection} {...rest} ref={ref}>
+        {children}
+      </View>
+    );
+  })
+);
 
-export const VSection = memo((props: any) => {
-  const { children, ...rest } = props;
-  return (
-    <View _extraProps={extraProps.VSection} {...rest}>
-      {children}
-    </View>
-  );
-});
+export const VSection = memo(
+  forwardRef((props: any, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <View _extraProps={extraProps.VSection} {...rest} ref={ref}>
+        {children}
+      </View>
+    );
+  })
+);

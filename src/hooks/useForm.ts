@@ -4,6 +4,7 @@ export const useForm = ({ initialState = {}, schema = {} }: any) => {
   const [formData, setFormData] =
     useState<{ [key: string]: string }>(initialState);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [submitTouched, setSubmitTouched] = useState<boolean>(false);
 
   const handleChange = (key: string) => {
     return (value: string) => {
@@ -16,22 +17,33 @@ export const useForm = ({ initialState = {}, schema = {} }: any) => {
     };
   };
 
-  const handleSubmit = () => {};
+  const handleSubmitForm = (
+    callback: (formData: { [key: string]: string }) => void
+  ) => {
+    setSubmitTouched(true);
+    handleValidation();
+    return callback(formData);
+  };
 
-  const handleBlur = async () => {
+  const handleValidation = () => {
     schema
       .validate(formData, { abortEarly: false })
-      .then((valid) => {
+      .then((valid: boolean) => {
         setErrors({});
       })
-      .catch(async (error) => {
-        let errors: any = {};
-        await error.inner.forEach((e) => {
+      .catch(async (error: any) => {
+        let errors: { [key: string]: string } = {};
+        await error.inner.forEach((e: any) => {
           const { path, message } = e;
           errors[path] = message;
         });
         setErrors(errors);
       });
+  };
+
+  const handleBlur = async () => {
+    if (!submitTouched) return;
+    handleValidation();
   };
 
   const register = {
@@ -40,5 +52,5 @@ export const useForm = ({ initialState = {}, schema = {} }: any) => {
     _errors: errors,
   };
 
-  return { formData, handleSubmit, register, errors };
+  return { formData, handleSubmitForm, register, errors };
 };

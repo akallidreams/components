@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { forwardRef, memo } from "react";
 import { DefaultTheme, useTheme } from "styled-components/native";
 import { ViewProps, View as RNView } from "react-native";
 import { StyledComponent } from "styled-components";
@@ -24,52 +24,25 @@ export type IStyledViewBase = StyledComponent<
 export interface IView extends ViewProps {
   _style?: string;
   _variant?: string;
+  _extraProps?: string;
   AccessibilityRole?: string;
 }
 
-export const View = memo((props: IView) => {
-  const { _style, _variant, children, ...rest } = props;
-  const theme: ITheme = useTheme() as ITheme;
-  const RenderComponent: IMakeStyledComponent = makeStyledComponent(
-    {
-      _style,
-      _variant,
-      theme,
-    },
-    RNView
-  );
-  return <RenderComponent {...rest}>{children}</RenderComponent>;
-});
-
-// interface IViewSuper extends IView {
-//   _condition?: boolean;
-//   _fallback?: React.ReactNode;
-//   _list?: any;
-//   _item?: React.ReactNode;
-// }
-
-// export const View = memo((props: IViewSuper | any) => {
-//   const { _condition, _fallback, _list, _item, children, _style, ...rest } =
-//     props;
-//   if (_condition !== undefined) {
-//     return (
-//       <Show
-//         _condition={_condition}
-//         _fallback={_fallback}
-//         _style={_style}
-//         {...rest}
-//       >
-//         {children}
-//       </Show>
-//     );
-//   } else if (_list !== undefined) {
-//     return <For _list={_list} _item={_item} _style={_style} {...rest} />;
-//   }
-//   return (
-//     <StyledView _style={_style} {...rest}>
-//       {children}
-//     </StyledView>
-//   );
-// });
-
-// export default memo(forwardRef(View));
+export const View = memo(
+  forwardRef((props: IView, ref) => {
+    const { _style, _variant, children, _extraProps, ...rest } = props;
+    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+      {
+        _extraProps,
+        _style,
+        _variant,
+      },
+      RNView
+    );
+    return (
+      <RenderComponent {...rest} ref={ref}>
+        {children}
+      </RenderComponent>
+    );
+  })
+);

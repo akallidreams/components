@@ -60,8 +60,7 @@ export interface ITheme extends DefaultTheme {
 export interface IMakeStyledComponentProps {
   _style?: any;
   _variant?: string;
-  theme: ITheme;
-  extraProps?: string;
+  _extraProps?: string;
 }
 export type IMakeStyledComponent = StyledComponent<
   ComponentType<any>,
@@ -70,4 +69,7 @@ export type IMakeStyledComponent = StyledComponent<
   never
 >;
 
-export type IThemeColor = keyof IColors | keyof typeof initialTheme.colors;
+export type IThemeColor =
+  | keyof IColors
+  | keyof typeof initialTheme.colors
+  | IColor;

@@ -10,12 +10,13 @@ import { Header } from "./src/components/Header";
 import { Text, Truncated } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
 import { ThemeProvider } from "styled-components";
-import { Button, ButtonIcon } from "./src/components/Button";
+import { Button, ButtonGhost, ButtonIcon } from "./src/components/Button";
 import { Input } from "./src/components/Input";
 import { useForm } from "./src/hooks/useForm";
 import { useState } from "react";
 import { ITheme } from "./src";
 import * as yup from "yup";
+import { CloseIcon } from "./src/components/Icons";
 
 const schema = yup.object().shape({
   name: yup
@@ -30,8 +31,12 @@ export default function App() {
   // const handlePress = () => {
   //   setCounter(count + 1);
   // };
-  const { register, errors } = useForm({ schema });
-  //console.log(errors);
+  const { register, errors, handleSubmitForm } = useForm({ schema });
+
+  const handleSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <ThemeProvider theme={initialTheme}>
       {/* <ScrollView>
@@ -122,8 +127,22 @@ export default function App() {
           testing a string with 10 items or more
         </Truncated>
       </Center> */}
-      <Input _register={register} _label="name" />
+      <Input
+        _register={register}
+        _label="name"
+        _placeholder="seu nome"
+        _colors={{
+          main: "grey",
+          error: "red",
+        }}
+      />
       <Input _register={register} _label="email" />
+      <ButtonIcon
+        onPress={() => handleSubmitForm(handleSubmit)}
+        _iconLeft={() => <CloseIcon size={10} color="primary" />}
+      >
+        <Text _style="color: red">clique me</Text>
+      </ButtonIcon>
     </ThemeProvider>
   );
 }

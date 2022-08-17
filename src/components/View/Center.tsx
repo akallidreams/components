@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import { View } from "./View";
 
 const extraProps = {
@@ -10,29 +10,35 @@ const extraProps = {
   `,
 };
 
-export const Center = memo((props: any) => {
-  const { children, ...rest } = props;
-  return (
-    <View _extraProps={extraProps.Center} {...rest}>
-      {children}
-    </View>
-  );
-});
+export const Center = memo(
+  forwardRef((props: any, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <View _extraProps={extraProps.Center} {...rest} ref={ref}>
+        {children}
+      </View>
+    );
+  })
+);
 
-export const HCenter = memo((props: any) => {
-  const { children, ...rest } = props;
-  return (
-    <View _extraProps={extraProps.HCenter} {...rest}>
-      {children}
-    </View>
-  );
-});
+export const HCenter = memo(
+  forwardRef((props: any, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <View _extraProps={extraProps.HCenter} {...rest} ref={ref}>
+        {children}
+      </View>
+    );
+  })
+);
 
-export const VCenter = memo((props: any) => {
-  const { children, ...rest } = props;
-  return (
-    <View _extraProps={extraProps.VCenter} {...rest}>
-      {children}
-    </View>
-  );
-});
+export const VCenter = memo(
+  forwardRef((props: any, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <View _extraProps={extraProps.VCenter} {...rest} ref={ref}>
+        {children}
+      </View>
+    );
+  })
+);
