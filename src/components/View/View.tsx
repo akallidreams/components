@@ -1,10 +1,8 @@
-import React, { ComponentType, memo } from "react";
-import styled, { DefaultTheme, useTheme } from "styled-components/native";
+import React, { memo } from "react";
+import { DefaultTheme, useTheme } from "styled-components/native";
 import { ViewProps, View as RNView } from "react-native";
-import { For } from "../List";
 import { StyledComponent } from "styled-components";
 import { IMakeStyledComponent, ITheme } from "../../helpers/types";
-import { Show } from "./Show";
 import { makeStyledComponent } from "../../helpers/styles";
 
 /**
@@ -43,12 +41,12 @@ export const View = memo((props: IView) => {
   return <RenderComponent {...rest}>{children}</RenderComponent>;
 });
 
-interface IViewSuper extends IView {
-  _condition?: boolean;
-  _fallback?: React.ReactNode;
-  _list?: any;
-  _item?: React.ReactNode;
-}
+// interface IViewSuper extends IView {
+//   _condition?: boolean;
+//   _fallback?: React.ReactNode;
+//   _list?: any;
+//   _item?: React.ReactNode;
+// }
 
 // export const View = memo((props: IViewSuper | any) => {
 //   const { _condition, _fallback, _list, _item, children, _style, ...rest } =

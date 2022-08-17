@@ -11,23 +11,27 @@ import { Text, Truncated } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
 import { ThemeProvider } from "styled-components";
 import { Button, ButtonIcon } from "./src/components/Button";
-import { InputLength, InputEmail } from "./src/components/Input";
-import { useForm } from "react-hook-form";
-import { For } from "./src/components/List";
+import { Input } from "./src/components/Input";
+import { useForm } from "./src/hooks/useForm";
 import { useState } from "react";
 import { ITheme } from "./src";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .min(5, "put at least 5 letters")
+    .required("Name is required"),
+  email: yup.string().email("Not valid email").required("Email is required"),
+});
 
 export default function App() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const [count, setCounter] = useState(0);
-  const handlePress = () => {
-    setCounter(count + 1);
-  };
-
+  // const [count, setCounter] = useState(0);
+  // const handlePress = () => {
+  //   setCounter(count + 1);
+  // };
+  const { register, errors } = useForm({ schema });
+  //console.log(errors);
   return (
     <ThemeProvider theme={initialTheme}>
       {/* <ScrollView>
@@ -104,12 +108,22 @@ export default function App() {
       <Button onPress={handlePress}>
         <Text>Add</Text>
       </Button> */}
-      <View _style={styles.container}>
-        <Text>oi</Text>
+      {/* <View _style={styles.container}>
+        <Text _style={styles.textStyle}>oi</Text>
       </View>
       <Center _style={styles.center} _variant="button">
-        <Text>oi 2</Text>
-      </Center>
+        <Truncated
+          _length={10}
+          _style={`
+           background: purple; 
+           color: white;
+        `}
+        >
+          testing a string with 10 items or more
+        </Truncated>
+      </Center> */}
+      <Input _register={register} _label="name" />
+      <Input _register={register} _label="email" />
     </ThemeProvider>
   );
 }
@@ -122,5 +136,9 @@ const styles = {
   `,
   center: `
     width: 100px;
+  `,
+  textStyle: `
+    color: ${initialTheme.colors.success};
+    font-size: 20px;
   `,
 };
