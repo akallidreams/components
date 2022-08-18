@@ -114,7 +114,7 @@ export const Input = memo(
       ...rest
     } = props;
     const inputName = _label.toLowerCase().trim().replace(/ /g, "_");
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(""); // TODO: what is better, this or formData at key position?
     const [validColor, setValidColor] = useState("");
 
     useEffect(() => {

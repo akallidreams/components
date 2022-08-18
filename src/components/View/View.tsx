@@ -31,6 +31,7 @@ export interface IView extends ViewProps {
 export const View = memo(
   forwardRef((props: IView, ref) => {
     const { _style, _variant, children, _extraProps, ...rest } = props;
+    // TODO: make this with useMemo
     const RenderComponent: IMakeStyledComponent = makeStyledComponent(
       {
         _extraProps,

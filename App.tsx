@@ -27,6 +27,7 @@ export default function App() {
     <MyThemeProvider value={initialTheme}>
       <Input
         _register={register}
+        _key="name"
         _label="name"
         _placeholder="seu nome"
         _customStyles={{
