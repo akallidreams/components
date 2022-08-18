@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { types } from "../helpers";
+import { initialTheme, types } from "../helpers";
 import { Pressable } from "./Button";
 import { BackIcon, CloseIcon } from "./Icons";
 import { Center, HSection, View } from "./View";
@@ -15,14 +15,14 @@ const HeaderIcons = memo((props: IPropsHeaderIcons) =>
   props._icon === "back" ? (
     <Pressable onPress={props._onPressIcon}>
       <BackIcon
-        color={props._iconColor || "grey"}
+        color={props._iconColor || initialTheme.colors.grey}
         size={props._iconSize || 20}
       />
     </Pressable>
   ) : props._icon === "close" ? (
     <Pressable onPress={props._onPressIcon}>
       <CloseIcon
-        color={props._iconColor || "grey"}
+        color={props._iconColor || initialTheme.colors.grey}
         size={props._iconSize || 20}
       />
     </Pressable>

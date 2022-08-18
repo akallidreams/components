@@ -29,8 +29,12 @@ export default function App() {
         _register={register}
         _label="name"
         _placeholder="seu nome"
+        _customStyles={{
+          label: "font-size: 25px",
+          NativeTextInput: { fontSize: 25 },
+        }}
         _colors={{
-          main: "grey",
+          main: "#7a7a7a",
           error: "red",
         }}
       />

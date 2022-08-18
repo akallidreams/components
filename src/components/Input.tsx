@@ -1,8 +1,15 @@
 import { Text } from "./Text";
-import { forwardRef, LegacyRef, memo, useState } from "react";
-import { TextInputProps, TextInput as RNTextInput } from "react-native";
-import { IMakeStyledComponent, ITheme } from "../helpers/types";
+import { forwardRef, LegacyRef, memo, useEffect, useState } from "react";
+import {
+  TextInputProps,
+  TextInput as RNTextInput,
+  Text as RNText,
+  View as RNView,
+} from "react-native";
+import { IColor, IMakeStyledComponent, ITheme } from "../helpers/types";
 import { makeStyledComponent } from "../helpers/styles";
+import { StyleProps } from "react-native-reanimated";
+import { initialTheme } from "../helpers";
 
 /**
  * @params this module needs yup to validation 
@@ -60,23 +67,36 @@ interface IProps extends ITextInput {
     _errors: { [key: string]: string } | {};
   };
   _colors?: {
-    error: string;
-    main: string;
+    error?: IColor;
+    main?: IColor;
   };
   _placeholder?: string;
   _label: string;
+  _customStyles?: {
+    label?: string;
+    errorMessage?: string;
+    NativeTextInput?: StyleProps;
+  };
 }
 
 interface IValidateColor {
   _errors: { [key: string]: string } | {};
-  _colors: {
-    error: string;
-    main: string;
+  _colors?: {
+    error?: IColor;
+    main?: IColor;
   };
   inputName: string;
 }
+const defaultColors = {
+  error: initialTheme.colors.error,
+  main: initialTheme.colors.grey,
+};
 
-const validateColor = ({ _colors, _errors, inputName }: IValidateColor) => {
+const validateColor = ({
+  _colors = { error: defaultColors.error, main: defaultColors.main },
+  _errors,
+  inputName,
+}: IValidateColor) => {
   if (inputName in _errors) {
     return _colors.error;
   }
@@ -86,20 +106,33 @@ const validateColor = ({ _colors, _errors, inputName }: IValidateColor) => {
 export const Input = memo(
   forwardRef((props: IProps, ref: LegacyRef<RNTextInput> | undefined) => {
     const {
-      _style,
-      _variant,
+      _customStyles,
       _placeholder,
       _register: { onChangeText, _errors, ...register },
-      _colors = { error: "red", main: "blue" },
+      _colors,
       _label,
       ...rest
     } = props;
     const inputName = _label.toLowerCase().trim().replace(/ /g, "_");
     const [value, setValue] = useState("");
+    const [validColor, setValidColor] = useState("");
+
+    useEffect(() => {
+      const validatedColor: IColor = validateColor({
+        _colors: _colors || defaultColors,
+        _errors,
+        inputName,
+      }) as IColor;
+      if (validColor !== undefined) setValidColor(validatedColor);
+    }, [_errors]);
+
     return (
-      <>
+      <RNView style={{ width: "100%" }}>
         <Text
-          _style={`color: ${validateColor({ _colors, _errors, inputName })}`}
+          _style={`
+          ${_customStyles?.label};
+          color: ${validColor || defaultColors.main};
+        `}
         >
           {_label}
         </Text>
@@ -113,18 +146,25 @@ export const Input = memo(
           placeholder={_placeholder}
           value={value}
           style={{
-            color: validateColor({ _colors, _errors, inputName }),
-            borderColor: validateColor({ _colors, _errors, inputName }),
             borderWidth: 1,
+            ..._customStyles?.NativeTextInput,
+            color: validColor || defaultColors.main,
+            borderColor: validColor || defaultColors.main,
           }}
           {...rest}
         />
         {inputName in _errors ? (
-          <Text data-testId="error-message" _style={`color: ${_colors.error}`}>
+          <Text
+            data-testId="error-message"
+            _style={`
+              ${_customStyles?.errorMessage};
+             color: ${_colors?.error || defaultColors.error}};
+          `}
+          >
             {_errors?.[inputName as keyof typeof _errors]}
           </Text>
         ) : null}
-      </>
+      </RNView>
     );
   })
 );
