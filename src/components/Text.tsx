@@ -1,4 +1,3 @@
-import styled, { useTheme } from "styled-components/native";
 import React, { forwardRef, memo, useEffect, useState } from "react";
 import { TextProps, Text as RNText } from "react-native";
 import { IMakeStyledComponent } from "../helpers/types";

@@ -1,4 +1,3 @@
-import { useTheme } from "styled-components/native";
 import { Text } from "./Text";
 import { forwardRef, LegacyRef, memo, useState } from "react";
 import { TextInputProps, TextInput as RNTextInput } from "react-native";

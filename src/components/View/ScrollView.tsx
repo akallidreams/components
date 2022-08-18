@@ -1,6 +1,6 @@
 import { StyledComponent } from "styled-components";
 import { ScrollView as RNScrollView, ScrollViewProps } from "react-native";
-import { DefaultTheme, useTheme } from "styled-components/native";
+import { DefaultTheme } from "styled-components/native";
 import { forwardRef, memo, Ref } from "react";
 import { IView } from "./View";
 import { ITheme } from "../../helpers/types";

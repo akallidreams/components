@@ -1,5 +1,3 @@
-import { color, ColorProps, layout, space } from "styled-system";
-import styled, { useTheme } from "styled-components/native";
 import { makeStyledComponent } from "../helpers/styles";
 import { IView, View } from "./View/View";
 import React, { forwardRef, memo } from "react";
@@ -39,9 +37,14 @@ export const Button = memo(
       _extraProps = extraProps.defaultButton,
       ...rest
     } = props;
+    const extraPropsBase = `
+      align-items: center; 
+      justify-content: center; 
+      ${_extraProps}
+    `;
     const RenderComponent: IMakeStyledComponent = makeStyledComponent(
       {
-        _extraProps,
+        _extraProps: extraPropsBase,
         _style,
         _variant,
       },
@@ -80,19 +83,32 @@ export const ButtonIcon = memo(
     return (
       <Button {...buttonProps} ref={ref}>
         {_iconRight ? (
-          <>
-            <View _style={` margin-right: ${_spacing || "10px"}`}>
+          <View
+            _style={`
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+          `}
+          >
+            <View _style={`margin-right: ${_spacing || "10px"}`}>
               {children}
             </View>
+
             <_iconRight />
-          </>
+          </View>
         ) : _iconLeft ? (
-          <>
+          <View
+            _style={`
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+          `}
+          >
             <_iconLeft />
-            <View _style={` margin-left: ${_spacing || "10px"}`}>
+            <View _style={`margin-left: ${_spacing || "10px"};`}>
               {children}
             </View>
-          </>
+          </View>
         ) : null}
       </Button>
     );

@@ -1,8 +1,8 @@
 import React, { forwardRef, memo } from "react";
-import { DefaultTheme, useTheme } from "styled-components/native";
+import { DefaultTheme } from "styled-components/native";
 import { ViewProps, View as RNView } from "react-native";
 import { StyledComponent } from "styled-components";
-import { IMakeStyledComponent, ITheme } from "../../helpers/types";
+import { IMakeStyledComponent } from "../../helpers/types";
 import { makeStyledComponent } from "../../helpers/styles";
 
 /**

@@ -6,15 +6,10 @@ export {
   HSection,
   Center,
   ScrollView,
+  Show,
 } from "./View";
-export { Button, ButtonGhost, ButtonIcon } from "./Button";
+export { Button, Pressable, ButtonIcon } from "./Button";
 export { Text, Bold, Italic, Truncated } from "./Text";
-export {
-  InputLength,
-  InputEmail,
-  InputRequired,
-  TextInput,
-  TextArea,
-} from "./Input";
+export { Input, TextInput, TextArea } from "./Input";
 export { Header } from "./Header";
-export { FlatList, SectionList, For } from "./List";
+export { FlatList, SectionList } from "./List";

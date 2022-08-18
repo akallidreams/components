@@ -1,22 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Center,
-  If,
-  ScrollView,
-  StyledView,
-  View,
-} from "./src/components/View";
 import { Header } from "./src/components/Header";
-import { Text, Truncated } from "./src/components/Text";
+import { Text } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
-import { ThemeProvider } from "styled-components";
-import { Button, ButtonGhost, ButtonIcon } from "./src/components/Button";
 import { Input } from "./src/components/Input";
 import { useForm } from "./src/hooks/useForm";
-import { useState } from "react";
-import { ITheme } from "./src";
 import * as yup from "yup";
-import { CloseIcon } from "./src/components/Icons";
+import { BackIcon } from "./src/components/Icons";
+import { MyThemeProvider } from "./src/hooks";
+import { ButtonIcon } from "./src";
 
 const schema = yup.object().shape({
   name: yup
@@ -27,106 +17,14 @@ const schema = yup.object().shape({
 });
 
 export default function App() {
-  // const [count, setCounter] = useState(0);
-  // const handlePress = () => {
-  //   setCounter(count + 1);
-  // };
-  const { register, errors, handleSubmitForm } = useForm({ schema });
+  const { register, handleSubmitForm } = useForm({ schema });
 
   const handleSubmit = (data: any) => {
     console.log(data);
   };
 
   return (
-    <ThemeProvider theme={initialTheme}>
-      {/* <ScrollView>
-        <Center bg="primary" p="4%">
-          <Text fontSize="lg" bg="white" color="primary" mt="200px">
-            Open up App.tsx to start working on your app!
-          </Text>
-          <StatusBar style="auto" />
-        </Center>
-        <Truncated length={10}>
-          acho que nao Open up App.tsx to start working on your app!
-        </Truncated>
-        <ButtonIcon IconLeft={() => <Text>ICONE</Text>} bg="primary">
-          <Text color="white">clique em mim</Text>
-        </ButtonIcon>
-        <InputLength
-          _control={control}
-          _errors={errors}
-          _schema={{
-            label: "meuinput",
-            maxLength: 5,
-            maxLengthMessage: "atingiu meu limite",
-            requiredMessage: "campo obrigatorio",
-            color: "primary",
-          }}
-        />
-        <InputLength
-          _control={control}
-          _errors={errors}
-          _schema={{
-            label: "meu input 2",
-            minLength: 5,
-            minLengthMessage: "n e o suficiente",
-            requiredMessage: "campo obrigatorio",
-            color: "success",
-          }}
-        />
-        <InputEmail
-          _control={control}
-          _errors={errors}
-          _schema={{
-            label: "email",
-            requiredMessage: "campo obrigatorio",
-            invalidEmailMessage: "Email invalido",
-            color: "success",
-          }}
-        />
-        <Button onPress={handleSubmit(() => {})}>
-          <Text>clique me</Text>
-        </Button>
-        <Header
-          height="600px"
-          bg="primary"
-          _icon="close"
-          color="white"
-          _onPressIcon={() => {
-            console.log("ola amigo");
-          }}
-        >
-          <Text color="success" fontSize="lg">
-            meu texto
-          </Text>
-        </Header>
-      </ScrollView>
-      <If mb="20px" _condition={true} _else={() => <Text>aqui</Text>}>
-        <Text color="primary">Foi meu if</Text>
-      </If>
-      <For _list={[1, 2, 3]} _item={({ item, index }) => <Text>{item}</Text>} />
-      <View _condition={7 < 2} _else={() => <Text>rodas</Text>} mt="20px">
-        <Text color="primary">agora o text aqui</Text>
-      </View>
-      <Truncated length={10}>{count}</Truncated>
-      <Truncated length={10}>VAZIO</Truncated>
-      <Button onPress={handlePress}>
-        <Text>Add</Text>
-      </Button> */}
-      {/* <View _style={styles.container}>
-        <Text _style={styles.textStyle}>oi</Text>
-      </View>
-      <Center _style={styles.center} _variant="button">
-        <Truncated
-          _length={10}
-          _style={`
-           background: purple; 
-           color: white;
-        `}
-        >
-          testing a string with 10 items or more
-        </Truncated>
-      </Center> */}
+    <MyThemeProvider value={initialTheme}>
       <Input
         _register={register}
         _label="name"
@@ -139,11 +37,14 @@ export default function App() {
       <Input _register={register} _label="email" />
       <ButtonIcon
         onPress={() => handleSubmitForm(handleSubmit)}
-        _iconLeft={() => <CloseIcon size={10} color="primary" />}
+        _iconLeft={() => <BackIcon size={14} color="secondary" />}
       >
         <Text _style="color: red">clique me</Text>
       </ButtonIcon>
-    </ThemeProvider>
+      <Header _onPressIcon={() => {}} bg="#4287f5">
+        <Text>meu texto</Text>
+      </Header>
+    </MyThemeProvider>
   );
 }
 
