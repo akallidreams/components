@@ -5,7 +5,7 @@ import { Input } from "./src/components/Input";
 import * as yup from "yup";
 import { BackIcon } from "./src/components/Icons";
 import { MyThemeProvider, useMyStyle, useMyForm } from "./src/hooks";
-import { ButtonIcon, IColor } from "./src";
+import { Button, ButtonIcon, Center, FlatList, IColor, View } from "./src";
 import { useState } from "react";
 
 const schema = yup.object().shape({
@@ -25,42 +25,69 @@ export default function App() {
     setColor("#32a852");
   };
 
-  const buttonStyle = useMyStyle(buttonCustomStyle(color), [color]);
+  // const buttonStyle = useMyStyle(buttonCustomStyle(color), [color]);
+
+  const myList = [
+    { name: "Wiry", email: "wiry@gmail.com" },
+    { name: "Jes", email: "jes@gmail.com" },
+    { name: "Dan", email: "dan@gmail.com" },
+  ];
 
   return (
     <MyThemeProvider theme={initialTheme}>
-      <Input
-        _register={register}
-        _key="name"
-        _label="name"
-        _placeholder="seu nome"
-        _customStyles={{
-          label: "font-size: 25px",
-          input: "font-size: 25px",
-          container: "margin-top: 20px",
-        }}
-        _colors={{
-          main: "#7a7a7a",
-          error: "#f5427b",
-        }}
-      />
-      <Input
-        _variant="myInput"
-        _placeholder="seu email"
-        _register={register}
-        _label="email"
-        _key="email"
-      />
-      <ButtonIcon
-        onPress={() => handleSubmitForm(handleSubmit)}
-        _iconLeft={() => <BackIcon size={14} color="success" />}
-        _style={buttonStyle}
+      <Header
+        _onPressIcon={() => {}}
+        bg="#202C5D"
+        height="160px"
+        _icon="close"
+        _iconColor="white"
       >
-        <Text _style={styles.container}>clique me</Text>
-      </ButtonIcon>
-      <Header _onPressIcon={() => {}} bg="#4287f5">
-        <Text>meu texto</Text>
+        <Center>
+          <Text _style="color: white; font-size: 20px;">Meu titulo</Text>
+          <Text _style="color: white; font-size: 15px;">Meu subtitulo</Text>
+        </Center>
       </Header>
+      <View _style="padding: 15px; height: 100%;  ">
+        <Input
+          _variant="inputForm"
+          _register={register}
+          _key="name"
+          _label="Name"
+          _placeholder="Seu nome"
+          _customStyles={styles.inputDataClient}
+          _colors={{
+            main: "#7a7a7a",
+            error: "#f5427b",
+          }}
+        />
+        <Input
+          _variant="inputForm"
+          _placeholder="Seu email"
+          _register={register}
+          _label="Email"
+          _key="email"
+          _customStyles={styles.inputDataClient}
+          _colors={{
+            main: "#7a7a7a",
+            error: "#f5427b",
+          }}
+        />
+        <Button
+          onPress={() => handleSubmitForm(handleSubmit)}
+          _style={styles.buttonAddDataClients}
+        >
+          <Text _style="color: white;">Clique me</Text>
+        </Button>
+        <FlatList
+          data={myList}
+          renderItem={({ item }) => (
+            <Center _style="margin-top: 30px; border: 1px; border-radius: 10px; background-color: #F4F5F7">
+              <Text _style={styles.clientList}>Nome: {item.name}</Text>
+              <Text _style={styles.clientList}>Email: {item.email}</Text>
+            </Center>
+          )}
+        ></FlatList>
+      </View>
     </MyThemeProvider>
   );
 }
@@ -70,18 +97,32 @@ const buttonCustomStyle = (color: IColor) => `
 `;
 
 const styles = {
-  container: `
-    width: 100px;
-    color: white;
-  `,
-  center: `
-    width: 100px;
-  `,
-  textStyle: `
-    color: red;
-    font-size: 20px;
-  `,
-  input: `
+  buttonAddDataClients: `
+    background-color: #202C5D; 
+    width: 250px;
     margin-top: 20px;
   `,
+  clientList: `
+    color: #7a7a7a; 
+    font-size: 15px;
+    padding: 4px;
+  `,
+  inputDataClient: {
+    label: `
+      font-size: 20px; 
+      text-align: left;
+      
+    `,
+    input: `
+      font-size: 18px; 
+      padding-left: 15px; 
+      height: 40px;
+      border-radius: 8px;
+      color: #A7A7A8;
+    `,
+    container: `
+      margin-top: 20px; 
+      align-items: flex-start;
+    `,
+  },
 };
