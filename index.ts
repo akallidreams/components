@@ -20,7 +20,9 @@ export {
   FlatList,
   SectionList,
   Show,
-  useForm,
+  useMyForm,
+  useMyStyledComponent,
+  useMyStyle,
   useMyTheme,
   MyThemeProvider,
 } from "./src";

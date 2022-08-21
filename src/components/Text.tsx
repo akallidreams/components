@@ -1,7 +1,8 @@
 import React, { forwardRef, memo, useEffect, useState } from "react";
 import { TextProps, Text as RNText } from "react-native";
 import { IMakeStyledComponent } from "../helpers/types";
-import { makeStyledComponent } from "../helpers/styles";
+import { makeStyledComponent } from "../helpers/makeStyledComponent";
+import { useMyStyledComponent } from "../hooks";
 
 interface IText extends TextProps {
   _style?: string;
@@ -21,7 +22,7 @@ const extraProps = {
 // FIXME: can't use forwardRef on Text component
 export const Text = memo((props: IText) => {
   const { _style, _variant, _extraProps, children, ...rest } = props;
-  const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+  const { MyStyledComponent } = useMyStyledComponent(
     {
       _extraProps,
       _style,
@@ -29,7 +30,8 @@ export const Text = memo((props: IText) => {
     },
     RNText
   );
-  return <RenderComponent {...rest}>{children}</RenderComponent>;
+
+  return <MyStyledComponent {...rest}>{children}</MyStyledComponent>;
 });
 
 export const Bold = memo(
@@ -69,11 +71,7 @@ export const Truncated = memo(
         setText(text);
       }
     };
-    return (
-      <Text {...textProps} ref={ref}>
-        {text}
-      </Text>
-    );
+    return <Text {...textProps}>{text}</Text>;
   })
 );
 

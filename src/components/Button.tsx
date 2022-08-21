@@ -1,9 +1,10 @@
-import { makeStyledComponent } from "../helpers/styles";
+import { makeStyledComponent } from "../helpers/makeStyledComponent";
 import { IView, View } from "./View/View";
 import React, { forwardRef, memo } from "react";
 import { initialTheme } from "../helpers";
 import { PressableProps, Pressable as RNPressable } from "react-native";
 import { IMakeStyledComponent, ITheme } from "../helpers/types";
+import { useMyStyledComponent } from "../hooks";
 
 interface IButton extends IView, PressableProps {
   color?: string;
@@ -42,7 +43,7 @@ export const Button = memo(
       justify-content: center; 
       ${_extraProps}
     `;
-    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+    const { MyStyledComponent } = useMyStyledComponent(
       {
         _extraProps: extraPropsBase,
         _style,
@@ -50,10 +51,11 @@ export const Button = memo(
       },
       RNPressable
     );
+
     return (
-      <RenderComponent {...rest} ref={ref}>
+      <MyStyledComponent {...rest} ref={ref}>
         {children}
-      </RenderComponent>
+      </MyStyledComponent>
     );
   })
 );
@@ -68,6 +70,8 @@ export const Pressable = memo(
     );
   })
 );
+
+export const ButtonGhost = Pressable;
 
 interface IButtonIcon extends IButton {
   _iconLeft?: React.ElementType;

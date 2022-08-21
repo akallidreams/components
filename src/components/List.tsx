@@ -1,5 +1,4 @@
 import { IView } from "./View/View";
-import { makeStyledComponent } from "../helpers/styles";
 import {
   SectionListProps,
   ScrollViewProps,
@@ -8,7 +7,7 @@ import {
   SectionList as RNSectionList,
 } from "react-native";
 import { forwardRef, memo } from "react";
-import { IMakeStyledComponent, ITheme } from "../helpers/types";
+import { useMyStyledComponent } from "../hooks";
 
 interface IFlatList extends ScrollViewProps, FlatListProps<any>, IView {}
 
@@ -17,7 +16,7 @@ interface ISectionList extends SectionListProps<any>, IView {}
 export const FlatList = memo(
   forwardRef((props: IFlatList, ref) => {
     const { _style, _variant, children, ...rest } = props;
-    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+    const { MyStyledComponent } = useMyStyledComponent(
       {
         _style,
         _variant,
@@ -25,9 +24,9 @@ export const FlatList = memo(
       RNFlatList
     );
     return (
-      <RenderComponent {...rest} ref={ref}>
+      <MyStyledComponent {...rest} ref={ref}>
         {children}
-      </RenderComponent>
+      </MyStyledComponent>
     );
   })
 );
@@ -35,7 +34,7 @@ export const FlatList = memo(
 export const SectionList = memo(
   forwardRef((props: ISectionList, ref) => {
     const { _style, _variant, children, ...rest } = props;
-    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+    const { MyStyledComponent } = useMyStyledComponent(
       {
         _style,
         _variant,
@@ -43,9 +42,9 @@ export const SectionList = memo(
       RNSectionList
     );
     return (
-      <RenderComponent {...rest} ref={ref}>
+      <MyStyledComponent {...rest} ref={ref}>
         {children}
-      </RenderComponent>
+      </MyStyledComponent>
     );
   })
 );

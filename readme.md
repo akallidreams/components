@@ -44,7 +44,7 @@ import { MyThemeProvider, Text, useMyTheme, Center } from "@akalli/components";
 
 export const App = () => {
   return (
-    <MyThemeProvider value={MyCustomTheme}>
+    <MyThemeProvider theme={MyCustomTheme}>
       <Component />
     </MyThemeProvider>
   );
@@ -162,6 +162,13 @@ export default function App() {
   );
 }
 ```
+
+## Hooks
+
+- **useMyStyle** - use for create dinamic styles without causing re-rendering.
+- **useMyForm** - use for input with yup validations.
+- **useMyStyledComponent** - use for create your own akalli styled components.
+- **useMyTheme** - use for retrieve your theme.
 
 # Contribute
 

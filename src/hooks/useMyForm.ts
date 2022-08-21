@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useForm = ({ initialState = {}, schema = {} }: any) => {
+export const useMyForm = ({ initialState = {}, schema = {} }: any) => {
   const [formData, setFormData] =
     useState<{ [key: string]: string }>(initialState);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -50,6 +50,7 @@ export const useForm = ({ initialState = {}, schema = {} }: any) => {
     onChangeText: handleChange,
     onBlur: handleBlur,
     _errors: errors,
+    _formData: formData,
   };
 
   return { formData, handleSubmitForm, register, errors };

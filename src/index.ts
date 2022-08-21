@@ -22,7 +22,13 @@ export {
   Show,
 } from "./components";
 
-export { useForm, useMyTheme, MyThemeProvider } from "./hooks";
+export {
+  useMyForm,
+  useMyTheme,
+  MyThemeProvider,
+  useMyStyle,
+  useMyStyledComponent,
+} from "./hooks";
 
 export type {
   IColors,

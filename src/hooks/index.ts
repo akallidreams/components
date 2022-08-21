@@ -1,2 +1,4 @@
 export { useMyTheme, MyThemeProvider } from "./useMyTheme";
-export { useForm } from "./useForm";
+export { useMyForm } from "./useMyForm";
+export { useMyStyledComponent } from "./useMyStyledComponent";
+export { useMyStyle } from "./useMyStyle";

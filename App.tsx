@@ -2,11 +2,11 @@ import { Header } from "./src/components/Header";
 import { Text } from "./src/components/Text";
 import { initialTheme } from "./src/helpers";
 import { Input } from "./src/components/Input";
-import { useForm } from "./src/hooks/useForm";
 import * as yup from "yup";
 import { BackIcon } from "./src/components/Icons";
-import { MyThemeProvider } from "./src/hooks";
-import { ButtonIcon } from "./src";
+import { MyThemeProvider, useMyStyle, useMyForm } from "./src/hooks";
+import { ButtonIcon, IColor } from "./src";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   name: yup
@@ -17,14 +17,18 @@ const schema = yup.object().shape({
 });
 
 export default function App() {
-  const { register, handleSubmitForm } = useForm({ schema });
+  const { register, handleSubmitForm } = useMyForm({ schema });
+  const [color, setColor] = useState<IColor>("#f5427b");
 
   const handleSubmit = (data: any) => {
     console.log(data);
+    setColor("#32a852");
   };
 
+  const buttonStyle = useMyStyle(buttonCustomStyle(color), [color]);
+
   return (
-    <MyThemeProvider value={initialTheme}>
+    <MyThemeProvider theme={initialTheme}>
       <Input
         _register={register}
         _key="name"
@@ -32,19 +36,27 @@ export default function App() {
         _placeholder="seu nome"
         _customStyles={{
           label: "font-size: 25px",
-          NativeTextInput: { fontSize: 25 },
+          input: "font-size: 25px",
+          container: "margin-top: 20px",
         }}
         _colors={{
           main: "#7a7a7a",
-          error: "red",
+          error: "#f5427b",
         }}
       />
-      <Input _register={register} _label="email" />
+      <Input
+        _variant="myInput"
+        _placeholder="seu email"
+        _register={register}
+        _label="email"
+        _key="email"
+      />
       <ButtonIcon
         onPress={() => handleSubmitForm(handleSubmit)}
-        _iconLeft={() => <BackIcon size={14} color="secondary" />}
+        _iconLeft={() => <BackIcon size={14} color="success" />}
+        _style={buttonStyle}
       >
-        <Text _style="color: red">clique me</Text>
+        <Text _style={styles.container}>clique me</Text>
       </ButtonIcon>
       <Header _onPressIcon={() => {}} bg="#4287f5">
         <Text>meu texto</Text>
@@ -53,9 +65,12 @@ export default function App() {
   );
 }
 
+const buttonCustomStyle = (color: IColor) => `
+  background-color: ${color};
+`;
+
 const styles = {
   container: `
-    background-color: ${initialTheme.colors.secondary};
     width: 100px;
     color: white;
   `,
@@ -63,7 +78,10 @@ const styles = {
     width: 100px;
   `,
   textStyle: `
-    color: ${initialTheme.colors.success};
+    color: red;
     font-size: 20px;
+  `,
+  input: `
+    margin-top: 20px;
   `,
 };

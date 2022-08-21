@@ -1,15 +1,11 @@
 import { Text } from "./Text";
-import { forwardRef, LegacyRef, memo, useEffect, useState } from "react";
-import {
-  TextInputProps,
-  TextInput as RNTextInput,
-  Text as RNText,
-  View as RNView,
-} from "react-native";
-import { IColor, IMakeStyledComponent, ITheme } from "../helpers/types";
-import { makeStyledComponent } from "../helpers/styles";
+import { forwardRef, memo, Ref, useEffect, useState } from "react";
+import { TextInputProps, TextInput as RNTextInput } from "react-native";
+import { IColor, ITheme } from "../helpers/types";
 import { StyleProps } from "react-native-reanimated";
 import { initialTheme } from "../helpers";
+import { useMyStyledComponent } from "../hooks";
+import { Center } from "./View";
 
 /**
  * @params this module needs yup to validation 
@@ -45,17 +41,18 @@ interface ITextInput extends TextInputProps {
 export const TextInput = memo(
   forwardRef((props: ITextInput, ref) => {
     const { _style, _variant, children, ...rest } = props;
-    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+    const { MyStyledComponent } = useMyStyledComponent(
       {
         _style,
         _variant,
       },
       RNTextInput
     );
+
     return (
-      <RenderComponent ref={ref} {...rest}>
+      <MyStyledComponent {...rest} ref={ref}>
         {children}
-      </RenderComponent>
+      </MyStyledComponent>
     );
   })
 );
@@ -65,17 +62,20 @@ interface IProps extends ITextInput {
     onChangeText: (key: string) => (value: string) => void;
     onBlur: () => void;
     _errors: { [key: string]: string } | {};
+    _formData: { [key: string]: string };
   };
   _colors?: {
     error?: IColor;
     main?: IColor;
   };
+  _key: string;
   _placeholder?: string;
   _label: string;
   _customStyles?: {
     label?: string;
     errorMessage?: string;
-    NativeTextInput?: StyleProps;
+    input?: string;
+    container?: string;
   };
 }
 
@@ -85,7 +85,7 @@ interface IValidateColor {
     error?: IColor;
     main?: IColor;
   };
-  inputName: string;
+  _key: string;
 }
 const defaultColors = {
   error: initialTheme.colors.error,
@@ -95,39 +95,39 @@ const defaultColors = {
 const validateColor = ({
   _colors = { error: defaultColors.error, main: defaultColors.main },
   _errors,
-  inputName,
+  _key,
 }: IValidateColor) => {
-  if (inputName in _errors) {
+  if (_key in _errors) {
     return _colors.error;
   }
   return _colors.main;
 };
 
 export const Input = memo(
-  forwardRef((props: IProps, ref: LegacyRef<RNTextInput> | undefined) => {
+  forwardRef((props: IProps, ref: Ref<RNTextInput> | undefined) => {
     const {
       _customStyles,
       _placeholder,
-      _register: { onChangeText, _errors, ...register },
+      _register: { onChangeText, _errors, _formData, ...register },
       _colors,
+      _key,
       _label,
       ...rest
     } = props;
-    const inputName = _label.toLowerCase().trim().replace(/ /g, "_");
-    const [value, setValue] = useState(""); // TODO: what is better, this or formData at key position?
     const [validColor, setValidColor] = useState("");
 
     useEffect(() => {
       const validatedColor: IColor = validateColor({
         _colors: _colors || defaultColors,
         _errors,
-        inputName,
+        _key,
       }) as IColor;
       if (validColor !== undefined) setValidColor(validatedColor);
     }, [_errors]);
 
     return (
-      <RNView style={{ width: "100%" }}>
+      <Center _style={`width: 100%; ${_customStyles?.container}`}>
+        {/** TODO: create a way to style this container */}
         <Text
           _style={`
           ${_customStyles?.label};
@@ -136,24 +136,24 @@ export const Input = memo(
         >
           {_label}
         </Text>
-        <RNTextInput
+        <TextInput
           {...register}
           ref={ref}
           onChangeText={(text) => {
-            setValue(text);
-            onChangeText(inputName)(text);
+            onChangeText(_key)(text);
           }}
           placeholder={_placeholder}
-          value={value}
-          style={{
-            borderWidth: 1,
-            ..._customStyles?.NativeTextInput,
-            color: validColor || defaultColors.main,
-            borderColor: validColor || defaultColors.main,
-          }}
+          value={_formData[_key]}
+          _style={`
+            width: 100%;
+            border-width: 1px;
+            border-color: ${validColor || defaultColors.main};
+            color: ${validColor || defaultColors.main};
+            ${_customStyles?.input};
+          `}
           {...rest}
         />
-        {inputName in _errors ? (
+        {_key in _errors ? (
           <Text
             data-testId="error-message"
             _style={`
@@ -161,10 +161,10 @@ export const Input = memo(
              color: ${_colors?.error || defaultColors.error}};
           `}
           >
-            {_errors?.[inputName as keyof typeof _errors]}
+            {_errors?.[_key as keyof typeof _errors]}
           </Text>
         ) : null}
-      </RNView>
+      </Center>
     );
   })
 );

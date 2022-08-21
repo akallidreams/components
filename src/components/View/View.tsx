@@ -2,8 +2,7 @@ import React, { forwardRef, memo } from "react";
 import { DefaultTheme } from "styled-components/native";
 import { ViewProps, View as RNView } from "react-native";
 import { StyledComponent } from "styled-components";
-import { IMakeStyledComponent } from "../../helpers/types";
-import { makeStyledComponent } from "../../helpers/styles";
+import { useMyStyledComponent } from "../../hooks";
 
 /**
  * @summary Provides all types of semantic views using styled-components and styled-system.
@@ -31,8 +30,7 @@ export interface IView extends ViewProps {
 export const View = memo(
   forwardRef((props: IView, ref) => {
     const { _style, _variant, children, _extraProps, ...rest } = props;
-    // TODO: make this with useMemo
-    const RenderComponent: IMakeStyledComponent = makeStyledComponent(
+    const { MyStyledComponent } = useMyStyledComponent(
       {
         _extraProps,
         _style,
@@ -40,10 +38,11 @@ export const View = memo(
       },
       RNView
     );
+
     return (
-      <RenderComponent {...rest} ref={ref}>
+      <MyStyledComponent {...rest} ref={ref}>
         {children}
-      </RenderComponent>
+      </MyStyledComponent>
     );
   })
 );

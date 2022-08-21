@@ -1,0 +1,7 @@
+- [x] const [value, setValue] = useState(""); // TODO: what is better, this or formData at key position?
+- [x] <RNView style={{ width: "100%" }}> {/\*_ TODO: create a way to style this container _/}
+- [x] Replace all RenderComponent to useMemo or useEffect(research), maybe create a custom hook for this useStyledComponent()
+- [x] Add \_key as a prop to validation be the same like as the key of yup
+- [x] See if now you can replace RNTextInput and RNView for my styled components
+- Make some kind of performance test
+- [x] Make custom hook useStyle to dinamic styles putting it in useMemo

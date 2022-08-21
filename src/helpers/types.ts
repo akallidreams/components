@@ -55,12 +55,13 @@ export interface ILength extends IBase {
 export interface ITheme extends DefaultTheme {
   colors: IColors;
   fontSizes: IFontSizes;
-  variants: any;
+  variants: { [key: string]: string };
 }
 export interface IMakeStyledComponentProps {
-  _style?: any;
+  _style?: string;
   _variant?: string;
   _extraProps?: string;
+  _variants?: { [key: string]: string } | {};
 }
 export type IMakeStyledComponent = StyledComponent<
   ComponentType<any>,

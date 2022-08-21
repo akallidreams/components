@@ -23,5 +23,8 @@ export const initialTheme: ITheme = {
       background-color: pink;
       height: 200px;
     `,
+    myInput: `
+      background-color: pink;
+    `,
   },
 };

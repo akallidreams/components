@@ -2,6 +2,7 @@
   "expo": {
     "name": "akalli-theme",
     "slug": "akalli-theme",
+    "jsEngine": "hermes",
     "version": "1.0.0",
     "androidStatusBar": {
       "backgroundColor": "#35a0fe",
