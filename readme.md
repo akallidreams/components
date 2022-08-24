@@ -40,52 +40,28 @@ const styles = {
 ### Theming and variants
 
 ```tsx
-import { MyThemeProvider, Text, useMyTheme, Center } from "@akalli/components";
+const initialTheme = {
+  colors: {},
+  fontSizes: {},
+  variants: {
+    viewBgRed:`
+      background-color: red;
+    `
+  }
+}
 
-export const App = () => {
-  return (
-    <MyThemeProvider theme={MyCustomTheme}>
-      <Component />
-    </MyThemeProvider>
-  );
-};
-
-export const Component = () => {
-  const { colors } = useMyTheme();
-  return (
-    <Center variant="myVariant">
-      <Text
-        _style={`
-        color: ${color.primary};
-        font-size: 20px;
-      `}
-      >
-        My primary text
-      </Text>
-    </Center>
-  );
-};
+<MyThemeProvider theme={initialTheme}>
+  <View _variant='viewBgRed'>
+   <Text>Hey coders!</Text>
+  </View>
+</MyThemeProvider>
 ```
 
-### Dinamic styling without been inline
+### Dinamic styling
 
 ```tsx
-export const Component = () => {
-  const { colors } = useMyTheme();
-  const { textStyle } = styles({ color: "red" });
-  return (
-    <Center variant="myVariant">
-      <Text _style={textStyle}>My dinamic text</Text>
-    </Center>
-  );
-};
-
-const styles = (props) => ({
-  textStyle: `
-    color: ${props.color};
-    font-size: 14px;
-  `,
-});
+// This will only be called again when lang changes.
+const changeLangButtonStyle = useMyStyle(styles.changeLangButton(lang), [lang]);
 ```
 
 ## Custom theme schema
